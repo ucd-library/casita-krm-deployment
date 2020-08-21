@@ -1,0 +1,56 @@
+version: '3'
+services:
+
+  zookeeper:
+    image: {{ZOOKEEPER_IMAGE_NAME}}:{{ZOOKEEPER_TAG}}
+    environment: 
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper-data:/data
+      - zookeeper-datalog:/datalog
+
+  kafka:
+    image: {{KAFKA_IMAGE_NAME}}:{{KAFKA_TAG}}
+    env_file:
+      - .env
+    environment: 
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CLIENT_USER=admin
+    volumes: 
+      - kafka-data:/bitnami/kafka
+    depends_on:
+      - "zookeeper"
+
+  mongo:
+    image: {{MONGO_IMAGE_NAME}}:{{MONGO_TAG}}
+    volumes:
+      - mongo-data:/data/db
+
+  rabbitmq:
+    image: {{RABBITMQ_IMAGE_NAME}}:{{RABBITMQ_TAG}}
+    ports:
+      - "5672:5672"
+      - "15672:15672" # guest/guest
+
+  decoder:
+    image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
+    environment:
+      - GRB_FILE=decoded
+    volumes:
+      - ../docker.key:/root/.ssh/id_rsa
+    restart: always
+
+  secdecoder:
+    image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
+    environment:
+      - GRB_FILE=secdecoded
+    volumes:
+      - ../docker.key:/root/.ssh/id_rsa
+    restart: always
+
+volumes:
+  kafka-data:
+  zookeeper-data:
+  zookeeper-datalog:
+  mongo-data:
