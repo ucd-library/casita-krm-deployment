@@ -36,7 +36,7 @@ services:
   controller:
     image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - nfs-mount:/storage/nfs
+      - ./storage/storage/nfs
       - ./graph:/etc/krm/graph
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/lib:/service/lib
@@ -58,20 +58,33 @@ services:
   worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - nfs-mount:/storage/nfs
+      - ./storage/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/lib:/service/lib
     environment:
       - WORKER_TYPE=${WORKER_TYPE}
   # command: bash -c 'tail -f /dev/null'
 
-  # decoder:
-  #   image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
-  #   environment:
-  #     - GRB_FILE=decoded
-  #   volumes:
-  #     - ../docker.key:/root/.ssh/id_rsa
-  #   restart: always
+  decoder:
+    image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    environment:
+      - GRB_FILE=decoded
+      - TARGET_URL=http://decoder-krm-interface:3000
+    volumes:
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder/index.js:/service/index.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder/test.js:/service/test.js
+      - ../docker.key:/root/.ssh/id_rsa
+      - ./testsecdecorded.dat:/service/testsecdecorded.dat
+    restart: always
+  # command: bash -c 'tail -f /dev/null'
+
+  decoder-krm-interface:
+    image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    environment:
+      - GRB_FILE=decoded
+    volumes:
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder-krm-interface/index.js:/service/index.js
+  # command: bash -c 'tail -f /dev/null'
 
   # secdecoder:
   #   image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
@@ -86,4 +99,3 @@ volumes:
   zookeeper-data:
   zookeeper-datalog:
   mongo-data:
-  nfs-mount:

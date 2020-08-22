@@ -58,7 +58,7 @@ docker build \
   -t $WORKER_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/worker
 
-######### ROUTER WORKER ############
+######### BUILD ROUTER ############
 
 echo "building: $ROUTER_IMAGE_NAME:$KRM_TAG"
 docker build \
@@ -67,3 +67,21 @@ docker build \
   --cache-from $ROUTER_IMAGE_NAME:$DOCKER_CACHE_TAG \
   -t $ROUTER_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/router
+
+######### BUILD DECODER ############
+
+echo "building: $GRB_DECORDER_IMAGE_NAME:$CASITA_TASKS_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --cache-from $GRB_DECORDER_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $GRB_DECORDER_IMAGE_NAME:$CASITA_TASKS_TAG \
+  $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/decoder
+
+######### BUILD DECODER KRM INTERFACE ############
+
+echo "building: $DECORDER_KRM_INTERFACE_IMAGE_NAME:$CASITA_TASKS_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --cache-from $DECORDER_KRM_INTERFACE_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $DECORDER_KRM_INTERFACE_IMAGE_NAME:$CASITA_TASKS_TAG \
+  $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/decoder-krm-interface
