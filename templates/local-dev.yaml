@@ -40,8 +40,6 @@ services:
       - ./graph:/etc/krm/graph
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/lib:/service/lib
-    environment:
-      - WORKER_TYPE=${WORKER_TYPE}
     ports:
       - "3000:3000"
   # command: bash -c 'tail -f /dev/null'
@@ -51,19 +49,26 @@ services:
     volumes:
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/router/index.js:/service/index.js
       - ./graph:/etc/krm/graph
-    environment:
-      - WORKER_TYPE=${WORKER_TYPE}
   # command: bash -c 'tail -f /dev/null'
 
-  worker:
+  default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
       - ./storage/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/lib:/service/lib
     environment:
-      - WORKER_TYPE=${WORKER_TYPE}
+      - WORKER_TYPE=default.worker
   # command: bash -c 'tail -f /dev/null'
+
+  image-worker:
+    image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/lib:/service/lib
+    environment:
+      - WORKER_TYPE=node.image.worker
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
