@@ -36,7 +36,7 @@ services:
   controller:
     image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - ./storage/storage/nfs
+      - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/lib:/service/lib
@@ -54,7 +54,7 @@ services:
   default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - ./storage/storage/nfs
+      - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/lib:/service/lib
     environment:
@@ -62,11 +62,11 @@ services:
   # command: bash -c 'tail -f /dev/null'
 
   image-worker:
-    image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - ./storage/storage/nfs
-      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
-      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/lib:/service/lib
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/node-image-utils/index.js:/command/index.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/node-image-utils/lib:/command/lib
     environment:
       - WORKER_TYPE=node.image.worker
 
