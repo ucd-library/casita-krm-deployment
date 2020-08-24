@@ -30,8 +30,37 @@ services:
   rabbitmq:
     image: rabbitmq:3.7.2-management
     ports:
-      - "5672:5672"
       - "15672:15672" # guest/guest
+
+  controller:
+    image: ucd-lib/krm-controller:master
+    volumes:
+      - ./storage:/storage/nfs
+      - ./graph:/etc/krm/graph
+    ports:
+      - "3000:3000"
+
+  router:
+    image: ucd-lib/krm-router:master
+    volumes:
+      - ./graph:/etc/krm/graph
+
+  default-worker:
+    image: ucd-lib/krm-worker:master
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=default.worker
+
+  image-worker:
+    image: ucd-lib/krm-node-image-worker:master
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=node.image.worker
+
+  decoder-krm-interface:
+    image: ucd-lib/casita-decoder-krm-interface:master
 
   decoder:
     image: ucd-lib/grb-decoder:master

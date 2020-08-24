@@ -30,8 +30,37 @@ services:
   rabbitmq:
     image: {{RABBITMQ_IMAGE_NAME}}:{{RABBITMQ_TAG}}
     ports:
-      - "5672:5672"
       - "15672:15672" # guest/guest
+
+  controller:
+    image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage:/storage/nfs
+      - ./graph:/etc/krm/graph
+    ports:
+      - "3000:3000"
+
+  router:
+    image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./graph:/etc/krm/graph
+
+  default-worker:
+    image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=default.worker
+
+  image-worker:
+    image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=node.image.worker
+
+  decoder-krm-interface:
+    image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
