@@ -35,6 +35,8 @@ services:
 
   controller:
     image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
@@ -46,12 +48,16 @@ services:
 
   expire:
     image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/expire/index.js:/service/index.js
 
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/router/index.js:/service/index.js
       - ./graph:/etc/krm/graph
@@ -59,6 +65,8 @@ services:
 
   default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/worker/index.js:/service/index.js
@@ -69,6 +77,8 @@ services:
 
   image-worker:
     image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/node-image-utils/index.js:/command/index.js
@@ -78,6 +88,8 @@ services:
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
     environment:
       - GRB_FILE=decoded
       - TARGET_URL=http://decoder-krm-interface:3000
@@ -91,6 +103,8 @@ services:
 
   decoder-krm-interface:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
     environment:
       - GRB_FILE=decoded
       - TARGET_URL=http://decoder-krm-interface:3000

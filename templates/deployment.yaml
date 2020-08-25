@@ -34,6 +34,8 @@ services:
 
   controller:
     image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
@@ -42,16 +44,22 @@ services:
 
   expire:
     image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
 
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./graph:/etc/krm/graph
 
   default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
     environment:
@@ -59,6 +67,8 @@ services:
 
   image-worker:
     image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
     volumes:
       - ./storage:/storage/nfs
     environment:
@@ -66,9 +76,13 @@ services:
 
   decoder-krm-interface:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
     environment:
       - GRB_FILE=decoded
       - TARGET_URL=http://decoder-krm-interface:3000
@@ -78,6 +92,8 @@ services:
 
   secdecoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
     environment:
       - GRB_FILE=secdecoded
       - TARGET_URL=http://decoder-krm-interface:3000
