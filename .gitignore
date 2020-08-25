@@ -3,3 +3,4 @@ casita-krm-local-dev
 .DS_Store
 docker.key
 .env
+service-account.json

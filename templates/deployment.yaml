@@ -39,6 +39,7 @@ services:
     volumes:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
       - "3000:3000"
 
@@ -48,6 +49,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
 
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
@@ -55,6 +57,7 @@ services:
       - .env
     volumes:
       - ./graph:/etc/krm/graph
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
 
   default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
@@ -62,6 +65,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=default.worker
 
@@ -71,6 +75,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=node.image.worker
 
@@ -106,3 +111,4 @@ volumes:
   zookeeper-data:
   zookeeper-datalog:
   mongo-data:
+  service-account:
