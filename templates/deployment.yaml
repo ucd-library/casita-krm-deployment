@@ -73,7 +73,7 @@ services:
       - GRB_FILE=decoded
       - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
-      - ../docker.key:/root/.ssh/id_rsa
+      - ./docker.key:/root/.ssh/id_rsa
     restart: always
 
   secdecoder:
@@ -82,7 +82,7 @@ services:
       - GRB_FILE=secdecoded
       - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
-      - ../docker.key:/root/.ssh/id_rsa
+      - ./docker.key:/root/.ssh/id_rsa
     restart: always
 
 volumes:

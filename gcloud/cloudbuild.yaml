@@ -29,7 +29,7 @@ steps:
     entrypoint: "bash"
     args: ["-c", "./cmds/build.sh"]
     env: 
-      - 'CLOUD_BUILD=true'
+      - 'GCLOUD_BUILD=true'
 
   - name: gcr.io/cloud-builders/docker
     entrypoint: "bash"

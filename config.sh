@@ -39,20 +39,20 @@ KRM_REPO_NAME=krm-process-pipe
 KRM_REPO_URL=$GITHUB_ORG_URL/${KRM_REPO_NAME}
 
 CASITA_TASKS_REPO_NAME=casita-krm-tasks
-CASITA_TASKS_REPO_URL=$GITHUB_ORG_URL/${TASKS_REPO_NAME}
+CASITA_TASKS_REPO_URL=$GITHUB_ORG_URL/${CASITA_TASKS_REPO_NAME}
 
 ###
 # Docker
 ###
 
-GRB_DECORDER_IMAGE_NAME=ucd-lib/grb-decoder
-DECORDER_KRM_INTERFACE_IMAGE_NAME=ucd-lib/casita-decoder-krm-interface
-BASE_NODE_IMAGE_NAME=ucd-lib/krm-node-utils
-WORKER_IMAGE_NAME=ucd-lib/krm-worker
-NODE_IMAGE_WORKER_IMAGE_NAME=ucd-lib/krm-node-image-worker
-ROUTER_IMAGE_NAME=ucd-lib/krm-router
-CONTROLLER_IMAGE_NAME=ucd-lib/krm-controller
-EXPIRE_IMAGE_NAME=ucd-lib/krm-expire
+GRB_DECORDER_IMAGE_NAME=ucdlib/grb-decoder
+DECORDER_KRM_INTERFACE_IMAGE_NAME=ucdlib/casita-decoder-krm-interface
+BASE_NODE_IMAGE_NAME=ucdlib/krm-node-utils
+WORKER_IMAGE_NAME=ucdlib/krm-worker
+NODE_IMAGE_WORKER_IMAGE_NAME=ucdlib/krm-node-image-worker
+ROUTER_IMAGE_NAME=ucdlib/krm-router
+CONTROLLER_IMAGE_NAME=ucdlib/krm-controller
+EXPIRE_IMAGE_NAME=ucdlib/krm-expire
 ZOOKEEPER_IMAGE_NAME=zookeeper
 KAFKA_IMAGE_NAME=bitnami/kafka
 MONGO_IMAGE_NAME=mongo
