@@ -40,6 +40,11 @@ services:
     ports:
       - "3000:3000"
 
+  expire:
+    image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage:/storage/nfs
+
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
@@ -63,17 +68,19 @@ services:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
 
   decoder:
-    image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
+    image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     environment:
       - GRB_FILE=decoded
+      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../docker.key:/root/.ssh/id_rsa
     restart: always
 
   secdecoder:
-    image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
+    image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     environment:
       - GRB_FILE=secdecoded
+      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../docker.key:/root/.ssh/id_rsa
     restart: always

@@ -23,7 +23,6 @@ fi
 if [[ ! -z $LOCAL_BUILD ]]; then
   echo "Using local tags: $LOCAL_TAG"
   KRM_TAG=$LOCAL_TAG
-  GRB_DECORDER_TAG=$LOCAL_TAG
   CASITA_TASKS_TAG=$LOCAL_TAG
 fi
 
@@ -47,6 +46,16 @@ docker build \
   --cache-from $CONTROLLER_IMAGE_NAME:$DOCKER_CACHE_TAG \
   -t $CONTROLLER_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/controller
+
+######### BUILD EXPIRE ############
+
+echo "building: $EXPIRE_IMAGE_NAME:$KRM_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg NODEJS_BASE=${NODEJS_BASE} \
+  --cache-from $EXPIRE_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $EXPIRE_IMAGE_NAME:$KRM_TAG \
+  $REPOSITORY_DIR/$KRM_REPO_NAME/expire
 
 ######### BUILD WORKER ############
 
@@ -90,7 +99,7 @@ docker build \
 
 ######### NODE IMAGE WORKER ############
 
-echo "building: $GRB_DECORDER_IMAGE_NAME:$CASITA_TASKS_TAG"
+echo "building: $NODE_IMAGE_WORKER_IMAGE_NAME:$CASITA_TASKS_TAG"
 docker build \
   --build-arg BUILDKIT_INLINE_CACHE=1 \
   --build-arg WORKER_BASE_IMAGE=${WORKER_BASE_IMAGE} \

@@ -38,7 +38,6 @@ echo "$content" > ../docker-compose.yaml
 # generate local development dc file
 content=$(cat local-dev.yaml)
 KRM_TAG=$LOCAL_TAG
-GRB_DECORDER_TAG=$LOCAL_TAG
 CASITA_TASKS_TAG=$LOCAL_TAG
 for key in $(compgen -v); do
   if [[ $key == "COMP_WORDBREAKS" || $key == "content" ]]; then

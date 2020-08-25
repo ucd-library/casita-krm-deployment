@@ -15,8 +15,7 @@ APP_VERSION=v0.0.1
 # Repository tags/branchs
 # Tags should always be used for production deployments
 # Branches can be used for development deployments
-KRM_TAG=master
-GRB_DECORDER_TAG=master
+KRM_TAG=v0
 CASITA_TASKS_TAG=master
 
 # Docker
@@ -53,6 +52,7 @@ WORKER_IMAGE_NAME=ucd-lib/krm-worker
 NODE_IMAGE_WORKER_IMAGE_NAME=ucd-lib/krm-node-image-worker
 ROUTER_IMAGE_NAME=ucd-lib/krm-router
 CONTROLLER_IMAGE_NAME=ucd-lib/krm-controller
+EXPIRE_IMAGE_NAME=ucd-lib/krm-expire
 ZOOKEEPER_IMAGE_NAME=zookeeper
 KAFKA_IMAGE_NAME=bitnami/kafka
 MONGO_IMAGE_NAME=mongo
@@ -60,10 +60,10 @@ RABBITMQ_IMAGE_NAME=rabbitmq
 
 
 ALL_DOCKER_BUILD_IMAGES=( \
-  $GRB_DECORDER_IMAGE_NAME $WORKER_IMAGE_NAME $ZOOKEEPER_IMAGE_NAME \
+  $GRB_DECORDER_IMAGE_NAME $WORKER_IMAGE_NAME
   $ROUTER_IMAGE_NAME $CONTROLLER_IMAGE_NAME \
-  $KAFKA_IMAGE_NAME $MONGO_IMAGE_NAME $RABBITMQ_IMAGE_NAME \
   $DECORDER_KRM_INTERFACE_IMAGE_NAME $NODE_IMAGE_WORKER_IMAGE_NAME
+  $EXPIRE_IMAGE_NAME $BASE_NODE_IMAGE_NAME
 )
 
 ##

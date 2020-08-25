@@ -44,6 +44,12 @@ services:
       - "3000:3000"
   # command: bash -c 'tail -f /dev/null'
 
+  expire:
+    image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/expire/index.js:/service/index.js
+
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
@@ -87,12 +93,13 @@ services:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     environment:
       - GRB_FILE=decoded
+      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder-krm-interface/index.js:/service/index.js
   # command: bash -c 'tail -f /dev/null'
 
   # secdecoder:
-  #   image: {{GRB_DECORDER_IMAGE_NAME}}:{{GRB_DECORDER_TAG}}
+  #   image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
   #   environment:
   #     - GRB_FILE=secdecoded
   #   volumes:

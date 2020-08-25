@@ -33,27 +33,32 @@ services:
       - "15672:15672" # guest/guest
 
   controller:
-    image: ucd-lib/krm-controller:master
+    image: ucd-lib/krm-controller:v0
     volumes:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
     ports:
       - "3000:3000"
 
+  expire:
+    image: ucd-lib/krm-expire:v0
+    volumes:
+      - ./storage:/storage/nfs
+
   router:
-    image: ucd-lib/krm-router:master
+    image: ucd-lib/krm-router:v0
     volumes:
       - ./graph:/etc/krm/graph
 
   default-worker:
-    image: ucd-lib/krm-worker:master
+    image: ucd-lib/krm-worker:v0
     volumes:
       - ./storage:/storage/nfs
     environment:
       - WORKER_TYPE=default.worker
 
   image-worker:
-    image: ucd-lib/krm-node-image-worker:master
+    image: ucd-lib/krm-node-image-worker:v0
     volumes:
       - ./storage:/storage/nfs
     environment:
@@ -66,6 +71,7 @@ services:
     image: ucd-lib/grb-decoder:master
     environment:
       - GRB_FILE=decoded
+      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../docker.key:/root/.ssh/id_rsa
     restart: always
@@ -74,6 +80,7 @@ services:
     image: ucd-lib/grb-decoder:master
     environment:
       - GRB_FILE=secdecoded
+      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../docker.key:/root/.ssh/id_rsa
     restart: always
