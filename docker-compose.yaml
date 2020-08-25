@@ -66,7 +66,7 @@ services:
       - WORKER_TYPE=default.worker
 
   image-worker:
-    image: ucdlib/krm-node-image-worker:v0
+    image: ucdlib/krm-node-image-worker:master
     env_file:
       - .env
     volumes:

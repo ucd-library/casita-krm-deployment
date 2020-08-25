@@ -76,7 +76,7 @@ services:
   # command: bash -c 'tail -f /dev/null'
 
   image-worker:
-    image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+    image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
       - .env
     volumes:
