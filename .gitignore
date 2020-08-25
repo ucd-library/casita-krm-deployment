@@ -4,3 +4,4 @@ casita-krm-local-dev
 docker.key
 .env
 service-account.json
+storage
