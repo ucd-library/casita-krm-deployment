@@ -42,8 +42,6 @@ services:
       - ./graph:/etc/krm/graph
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/lib:/service/lib
-    ports:
-      - "3000:3000"
   # command: bash -c 'tail -f /dev/null'
 
   api:
@@ -53,6 +51,8 @@ services:
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/index.js:/service/index.js
+    ports:
+      - "${HOST_PORT:-3000}:3000"
     # command: bash -c 'tail -f /dev/null'
 
   expire:

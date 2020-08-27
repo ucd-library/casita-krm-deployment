@@ -41,7 +41,7 @@ services:
       - ./graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
-      - "3000:3000"
+      - "${HOST_PORT:-3000}:3000"
 
   api:
     image: ucdlib/krm-api:v0
