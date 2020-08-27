@@ -46,6 +46,15 @@ services:
       - "3000:3000"
   # command: bash -c 'tail -f /dev/null'
 
+  api:
+    image: {{API_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/index.js:/service/index.js
+    # command: bash -c 'tail -f /dev/null'
+
   expire:
     image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
@@ -105,10 +114,8 @@ services:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
       - .env
-    environment:
-      - GRB_FILE=decoded
-      - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
+      - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder-krm-interface/index.js:/service/index.js
   # command: bash -c 'tail -f /dev/null'
 

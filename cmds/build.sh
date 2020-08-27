@@ -47,6 +47,16 @@ docker build \
   -t $CONTROLLER_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/controller
 
+######### BUILD API ############
+
+echo "building: $API_IMAGE_NAME:$KRM_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg NODEJS_BASE=${NODEJS_BASE} \
+  --cache-from $API_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $API_IMAGE_NAME:$KRM_TAG \
+  $REPOSITORY_DIR/$KRM_REPO_NAME/api
+
 ######### BUILD EXPIRE ############
 
 echo "building: $EXPIRE_IMAGE_NAME:$KRM_TAG"
@@ -93,6 +103,7 @@ docker build \
 echo "building: $DECORDER_KRM_INTERFACE_IMAGE_NAME:$CASITA_TASKS_TAG"
 docker build \
   --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg NODEJS_BASE=${NODEJS_BASE} \
   --cache-from $DECORDER_KRM_INTERFACE_IMAGE_NAME:$DOCKER_CACHE_TAG \
   -t $DECORDER_KRM_INTERFACE_IMAGE_NAME:$CASITA_TASKS_TAG \
   $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/decoder-krm-interface

@@ -43,6 +43,14 @@ services:
     ports:
       - "3000:3000"
 
+  api:
+    image: {{API_IMAGE_NAME}}:{{KRM_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+
   expire:
     image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
@@ -83,6 +91,15 @@ services:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
       - .env
+    volumes:
+      - ./storage:/storage/nfs
+
+  secdecoder-krm-interface:
+    image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -101,7 +118,7 @@ services:
       - .env
     environment:
       - GRB_FILE=secdecoded
-      - TARGET_URL=http://decoder-krm-interface:3000
+      - TARGET_URL=http://secdecoder-krm-interface:3000
     volumes:
       - ./docker.key:/root/.ssh/id_rsa
     restart: always
