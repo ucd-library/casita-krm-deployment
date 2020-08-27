@@ -40,8 +40,6 @@ services:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
-    ports:
-      - "${HOST_PORT:-3000}:3000"
 
   api:
     image: ucdlib/krm-api:v0
@@ -50,6 +48,8 @@ services:
     volumes:
       - ./storage:/storage/nfs
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    ports:
+      - "${HOST_PORT:-3000}:3000"
 
   expire:
     image: ucdlib/krm-expire:v0
