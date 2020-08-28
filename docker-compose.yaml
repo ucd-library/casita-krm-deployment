@@ -87,6 +87,15 @@ services:
     environment:
       - WORKER_TYPE=node.image.worker
 
+  stream-status-worker:
+    image: ucdlib/krm-node-stream-status-worker:main
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=node.status.worker
+
   decoder-krm-interface:
     image: ucdlib/casita-decoder-krm-interface:main
     env_file:

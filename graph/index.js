@@ -31,6 +31,17 @@ module.exports = {
         }
       },
       command : (msg, opts) => `node-image-utils jp2-to-png ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    },
+
+    'http://casita.library.ucdavis.edu/stream-status/:scale/:date/:time/:cell/:band/:apid' : {
+      name : 'GRB Stream Status',
+      worker : WORKERS.NODE_STATUS,
+      dependencies : [{
+        subject : 'file:///:scale/:date/:time/:band/:apid/cells/:cell/fragment-metadata.json',
+      },{
+        subject : 'file:///:scale/:date/:time/:apid/metadata.json',
+      }],
+      command : (msg, opts) => `stream-status ${opts.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`,
     }
   }
 }
