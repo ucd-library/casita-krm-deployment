@@ -33,7 +33,7 @@ services:
       - "15672:15672" # guest/guest
 
   controller:
-    image: ucdlib/krm-controller:v0
+    image: ucdlib/krm-controller:main
     env_file:
       - .env
     volumes:
@@ -42,7 +42,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
 
   api:
-    image: ucdlib/krm-api:v0
+    image: ucdlib/krm-api:main
     env_file:
       - .env
     volumes:
@@ -52,7 +52,7 @@ services:
       - "${HOST_PORT:-3000}:3000"
 
   expire:
-    image: ucdlib/krm-expire:v0
+    image: ucdlib/krm-expire:main
     env_file:
       - .env
     volumes:
@@ -60,7 +60,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
 
   router:
-    image: ucdlib/krm-router:v0
+    image: ucdlib/krm-router:main
     env_file:
       - .env
     volumes:
@@ -68,7 +68,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
 
   default-worker:
-    image: ucdlib/krm-worker:v0
+    image: ucdlib/krm-worker:main
     env_file:
       - .env
     volumes:
@@ -78,7 +78,7 @@ services:
       - WORKER_TYPE=default.worker
 
   image-worker:
-    image: ucdlib/krm-node-image-worker:master
+    image: ucdlib/krm-node-image-worker:main
     env_file:
       - .env
     volumes:
@@ -88,21 +88,21 @@ services:
       - WORKER_TYPE=node.image.worker
 
   decoder-krm-interface:
-    image: ucdlib/casita-decoder-krm-interface:master
+    image: ucdlib/casita-decoder-krm-interface:main
     env_file:
       - .env
     volumes:
       - ./storage:/storage/nfs
 
   secdecoder-krm-interface:
-    image: ucdlib/casita-decoder-krm-interface:master
+    image: ucdlib/casita-decoder-krm-interface:main
     env_file:
       - .env
     volumes:
       - ./storage:/storage/nfs
 
   decoder:
-    image: ucdlib/grb-decoder:master
+    image: ucdlib/grb-decoder:main
     env_file:
       - .env
     environment:
@@ -113,7 +113,7 @@ services:
     restart: always
 
   secdecoder:
-    image: ucdlib/grb-decoder:master
+    image: ucdlib/grb-decoder:main
     env_file:
       - .env
     environment:

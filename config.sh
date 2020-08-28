@@ -15,8 +15,8 @@ APP_VERSION=v0.0.1
 # Repository tags/branchs
 # Tags should always be used for production deployments
 # Branches can be used for development deployments
-KRM_TAG=v0
-CASITA_TASKS_TAG=master
+KRM_TAG=main
+CASITA_TASKS_TAG=main
 
 # Docker
 
