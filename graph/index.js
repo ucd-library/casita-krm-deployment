@@ -6,7 +6,8 @@ const IMAGE_SCALES = /^(mesoscale|conus|fulldisk|solar-imagery-euv-data)$/;
 
 const WORKERS = {
   DEFAULT : 'default.worker',
-  NODE_IMAGE_UTILS : 'node.image.worker'
+  NODE_IMAGE_UTILS : 'node.image.worker',
+  NODE_STATUS : 'node.status.worker'
 }
 
 module.exports = {
