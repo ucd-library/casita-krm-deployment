@@ -34,6 +34,44 @@ module.exports = {
       command : (msg, opts) => `node-image-utils jp2-to-png ${opts.fs.nfsRoot}${opts.uri.pathname}`
     },
 
+    'file:///fulldisk/:date/:time/:band/:apid/image.png' : {
+      name : 'Create fulldisk composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///fulldisk/:date/:time/:band/:apid/cells/:cell/image.png',
+      }],
+      options : {
+        dependentCount : 232
+      },
+      command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    },
+
+    'file:///conus/:date/:time/:band/:apid/image.png' : {
+      name : 'Create conus composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///conus/:date/:time/:band/:apid/cells/:cell/image.png',
+      }],
+      options : {
+        dependentCount : 229,
+        delay : 500
+      },
+      command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    },
+
+    'file:///mesoscale/:date/:time/:band/:apid/image.png' : {
+      name : 'Create mesoscale composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///mesoscale/:date/:time/:band/:apid/cells/:cell/image.png',
+      }],
+      options : {
+        dependentCount : 4,
+        delay : 500
+      },
+      command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    },
+
     'http://casita.library.ucdavis.edu/stream-status/:scale/:date/:time/:cell/:band/:apid' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
