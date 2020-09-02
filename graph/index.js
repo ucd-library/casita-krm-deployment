@@ -31,7 +31,7 @@ module.exports = {
           return JSON.parse(fs.readFileSync(pathname, 'utf-8')).fragmentsCount;
         }
       },
-      command : (msg, opts) => `node-image-utils jp2-to-png ${opts.fs.nfsRoot}${opts.uri.pathname}`
+      command : (msg, opts) => `node-image-utils jp2-to-png ${opts.fs.nfsRoot}${opts.uri.pathname} --rm-fragments`
     },
 
     'file:///fulldisk/:date/:time/:band/:apid/image.png' : {
@@ -41,7 +41,8 @@ module.exports = {
         subject : 'file:///fulldisk/:date/:time/:band/:apid/cells/:cell/image.png',
       }],
       options : {
-        dependentCount : 232
+        dependentCount : 232,
+        timeout : 20 * 60 * 1000
       },
       command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
     },
@@ -54,7 +55,8 @@ module.exports = {
       }],
       options : {
         dependentCount : 229,
-        delay : 500
+        delay : 500,
+        timeout : 10 * 60 * 1000
       },
       command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
     },
