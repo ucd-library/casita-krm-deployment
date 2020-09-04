@@ -14,75 +14,77 @@ module.exports = {
   name : 'casita',
   graph : {
 
-    'file:///:scale/:date/:time/:band/:apid/cells/:cell/image.png' : {
+    'file:///west/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png' : {
       name : 'Merge and convert JP2 fragments',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
-        subject : 'file:///:scale/:date/:time/:band/:apid/cells/:cell/fragments/:fragment/image_fragment.jp2',
+        subject : 'file:///west/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/fragments/{fragment}/image_fragment.jp2',
         constraints : {
           scale : IMAGE_SCALES
         }
       }],
       options : {
-        dependentCount : (subject, rootDir) => {
-          let pathname = path.parse(new URL(subject).pathname).dir;
-          pathname = path.join(rootDir, pathname, '..', '..', 'fragment-metadata.json');
-          if( !fs.existsSync(pathname) ) return 9999;
-          return JSON.parse(fs.readFileSync(pathname, 'utf-8')).fragmentsCount;
+        ready : (uri, msg, config) => {
+          let pathname = path.parse(uri.pathname).dir;
+          pathname = path.join(config.fs.nfsRoot, pathname, '..', '..', 'fragment-metadata.json');
+          if( !fs.existsSync(pathname) ) return false;
+
+          let count = JSON.parse(fs.readFileSync(pathname, 'utf-8')).fragmentsCount;
+          return ( msg.data.ready.length >= count);
         }
       },
-      command : (msg, opts) => `node-image-utils jp2-to-png ${opts.fs.nfsRoot}${opts.uri.pathname} --rm-fragments`
+      command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname} --rm-fragments`
     },
 
-    // 'file:///fulldisk/:date/:time/:band/:apid/image.png' : {
+    // 'file:///west/fulldisk/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
     //   name : 'Create fulldisk composite images',
     //   worker : WORKERS.NODE_IMAGE_UTILS,
     //   dependencies : [{
-    //     subject : 'file:///fulldisk/:date/:time/:band/:apid/cells/:cell/image.png',
+    //     subject : 'file:///west/fulldisk/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
     //   }],
     //   options : {
     //     dependentCount : 232,
     //     timeout : 20 * 60 * 1000
     //   },
-    //   command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    //   command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     // },
 
-    // 'file:///conus/:date/:time/:band/:apid/image.png' : {
+    // 'file:///west/conus/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
     //   name : 'Create conus composite images',
     //   worker : WORKERS.NODE_IMAGE_UTILS,
     //   dependencies : [{
-    //     subject : 'file:///conus/:date/:time/:band/:apid/cells/:cell/image.png',
+    //     subject : 'file:///west/conus/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
     //   }],
     //   options : {
     //     dependentCount : 229,
     //     delay : 500,
     //     timeout : 10 * 60 * 1000
     //   },
-    //   command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    //    command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     // },
 
-    // 'file:///mesoscale/:date/:time/:band/:apid/image.png' : {
+    // 'file:///west/mesoscale/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
     //   name : 'Create mesoscale composite images',
     //   worker : WORKERS.NODE_IMAGE_UTILS,
     //   dependencies : [{
-    //     subject : 'file:///mesoscale/:date/:time/:band/:apid/cells/:cell/image.png',
+    //     subject : 'ile:///west/mesoscale/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
     //   }],
     //   options : {
     //     dependentCount : 4,
     //     delay : 500
     //   },
-    //   command : (msg, opts) => `node-image-utils composite ${opts.fs.nfsRoot}${opts.uri.pathname}`
+    //    command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     // },
 
-    'http://casita.library.ucdavis.edu/stream-status/:scale/:date/:time/:cell/:band/:apid' : {
+    'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/{block}' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
-        subject : 'file:///:scale/:date/:time/:band/:apid/cells/:cell/fragment-metadata.json',
+        subject : 'file:///{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
       },{
-        subject : 'file:///:scale/:date/:time/:apid/metadata.json',
+        subject : 'file:///{scale}/:date/{hour}/{min}/{sec}/{apid}/metadata.json',
       }],
-      command : (msg, opts) => `stream-status ${opts.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`,
+      command : (uri, msg, config) => `stream-status ${config.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`
     }
   }
 }
