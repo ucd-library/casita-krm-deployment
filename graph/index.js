@@ -14,11 +14,11 @@ module.exports = {
   name : 'casita',
   graph : {
 
-    'file:///west/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png' : {
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png' : {
       name : 'Merge and convert JP2 fragments',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/fragments/{fragment}/image_fragment.jp2',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragments/{fragment}/image_fragment.jp2',
         constraints : {
           scale : IMAGE_SCALES
         }
@@ -36,53 +36,53 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname} --rm-fragments`
     },
 
-    // 'file:///west/fulldisk/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
-    //   name : 'Create fulldisk composite images',
-    //   worker : WORKERS.NODE_IMAGE_UTILS,
-    //   dependencies : [{
-    //     subject : 'file:///west/fulldisk/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
-    //   }],
-    //   options : {
-    //     dependentCount : 232,
-    //     timeout : 20 * 60 * 1000
-    //   },
-    //   command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    // },
+    'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+      name : 'Create fulldisk composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+      }],
+      options : {
+        dependentCount : 232,
+        timeout : 20 * 60 * 1000
+      },
+      command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    },
 
-    // 'file:///west/conus/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
-    //   name : 'Create conus composite images',
-    //   worker : WORKERS.NODE_IMAGE_UTILS,
-    //   dependencies : [{
-    //     subject : 'file:///west/conus/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
-    //   }],
-    //   options : {
-    //     dependentCount : 229,
-    //     delay : 500,
-    //     timeout : 10 * 60 * 1000
-    //   },
-    //    command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    // },
+    'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+      name : 'Create conus composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+      }],
+      options : {
+        dependentCount : 229,
+        delay : 500,
+        timeout : 10 * 60 * 1000
+      },
+       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    },
 
-    // 'file:///west/mesoscale/{date}/{hour}/{min}/{sec}/{band}/{apid}/image.png' : {
-    //   name : 'Create mesoscale composite images',
-    //   worker : WORKERS.NODE_IMAGE_UTILS,
-    //   dependencies : [{
-    //     subject : 'ile:///west/mesoscale/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/image.png',
-    //   }],
-    //   options : {
-    //     dependentCount : 4,
-    //     delay : 500
-    //   },
-    //    command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    // },
+    'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+      name : 'Create mesoscale composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'ile:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+      }],
+      options : {
+        dependentCount : 4,
+        delay : 500
+      },
+       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    },
 
-    'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/{block}' : {
+    'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
-        subject : 'file:///{scale}/{date}/{hour}/{min}/{sec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
+        subject : 'file:///{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
       },{
-        subject : 'file:///{scale}/:date/{hour}/{min}/{sec}/{apid}/metadata.json',
+        subject : 'file:///{scale}/:date/{hour}/{minsec}/{apid}/metadata.json',
       }],
       command : (uri, msg, config) => `stream-status ${config.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`
     }
