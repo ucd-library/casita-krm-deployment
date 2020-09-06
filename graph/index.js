@@ -68,7 +68,7 @@ module.exports = {
       name : 'Create mesoscale composite images',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
-        subject : 'ile:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+        subject : 'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
       }],
       options : {
         ready : compositeReady.mesoscale
