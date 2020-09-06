@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const {URL} = require('url');
+const compositeReady = require('./composite-ready');
 
 const IMAGE_SCALES = /^(mesoscale|conus|fulldisk|solar-imagery-euv-data)$/;
 
@@ -43,7 +44,7 @@ module.exports = {
         subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
       }],
       options : {
-        dependentCount : 232,
+        ready : compositeReady.fulldisk,
         timeout : 20 * 60 * 1000
       },
       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
@@ -56,7 +57,7 @@ module.exports = {
         subject : 'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
       }],
       options : {
-        dependentCount : 229,
+        ready : compositeReady.conus,
         delay : 500,
         timeout : 10 * 60 * 1000
       },
@@ -70,10 +71,9 @@ module.exports = {
         subject : 'ile:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
       }],
       options : {
-        dependentCount : 4,
-        delay : 500
+        ready : compositeReady.mesoscale
       },
-       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+      command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     },
 
     'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
