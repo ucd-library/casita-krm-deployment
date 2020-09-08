@@ -79,9 +79,9 @@ module.exports = {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
-        subject : 'file:///{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
       },{
-        subject : 'file:///{scale}/:date/{hour}/{minsec}/{apid}/metadata.json',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/metadata.json',
       }],
       command : (uri, msg, config) => `stream-status ${config.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`
     }
