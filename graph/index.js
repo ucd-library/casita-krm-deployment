@@ -75,6 +75,24 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     },
 
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/web_scaled.png' : {
+      name : 'Create web scale composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/image.png',
+      }],
+      command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
+    },
+
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/web_scaled.png' : {
+      name : 'Create web scale composite images',
+      worker : WORKERS.NODE_IMAGE_UTILS,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+      }],
+      command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
+    },
+
     'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
