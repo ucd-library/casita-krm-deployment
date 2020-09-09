@@ -50,6 +50,8 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
       - "${HOST_PORT:-3000}:3000"
+    environment:
+      - API_SERVICES=ws-service:ws
 
   expire:
     image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
@@ -66,6 +68,11 @@ services:
     volumes:
       - ./graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+
+  ws-service:
+    image: {{WS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
 
   default-worker:
     image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}

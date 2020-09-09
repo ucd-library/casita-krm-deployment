@@ -53,6 +53,8 @@ services:
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/index.js:/service/index.js
     ports:
       - "${HOST_PORT:-3000}:3000"
+    environment:
+      - API_SERVICES=ws-service:ws
     # command: bash -c 'tail -f /dev/null'
 
   expire:
@@ -70,6 +72,14 @@ services:
     volumes:
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/router/index.js:/service/index.js
       - ./graph:/etc/krm/graph
+  # command: bash -c 'tail -f /dev/null'
+
+  ws-service:
+    image: {{WS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    volumes:
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/ws-service/index.js:/service/index.js
+    env_file:
+      - .env
   # command: bash -c 'tail -f /dev/null'
 
   default-worker:
