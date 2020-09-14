@@ -40,6 +40,7 @@ services:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    restart: always
 
   api:
     image: ucdlib/krm-api:main
@@ -52,6 +53,7 @@ services:
       - "${HOST_PORT:-3000}:3000"
     environment:
       - API_SERVICES=ws-service:ws
+    restart: always
 
   expire:
     image: ucdlib/krm-expire:main
@@ -60,6 +62,7 @@ services:
     volumes:
       - ./storage:/storage/nfs
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    restart: always
 
   router:
     image: ucdlib/krm-router:main
@@ -68,11 +71,13 @@ services:
     volumes:
       - ./graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    restart: always
 
   ws-service:
     image: ucdlib/krm-ws-service:main
     env_file:
       - .env
+    restart: always
 
   default-worker:
     image: ucdlib/krm-worker:main
@@ -109,6 +114,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+    restart: always
 
   secdecoder-krm-interface:
     image: ucdlib/casita-decoder-krm-interface:main
@@ -116,6 +122,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+    restart: always
 
   decoder:
     image: ucdlib/grb-decoder:main
