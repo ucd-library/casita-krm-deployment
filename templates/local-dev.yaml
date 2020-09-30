@@ -54,7 +54,7 @@ services:
     ports:
       - "${HOST_PORT:-3000}:3000"
     environment:
-      - API_SERVICES=ws-service:ws
+      - API_SERVICES="ws-service:ws stream-status-service:status"
     # command: bash -c 'tail -f /dev/null'
 
   expire:
@@ -112,9 +112,18 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
-      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/status/index.js:/command/index.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/status/worker/index.js:/command/index.js
     environment:
       - WORKER_TYPE=node.status.worker
+    # command: bash -c 'tail -f /dev/null'
+
+  # stream-status-service:
+  #   image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./storage:/storage/nfs
+  #     - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/status/service/index.js:/command/index.js
     # command: bash -c 'tail -f /dev/null'
 
   decoder:

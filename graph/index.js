@@ -19,7 +19,7 @@ module.exports = {
       name : 'Merge and convert JP2 fragments',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragments/{fragment}/image_fragment.jp2',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragments/{fragment}/image-fragment.jp2',
         constraints : {
           scale : IMAGE_SCALES
         }
@@ -75,7 +75,7 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     },
 
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/web_scaled.png' : {
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/web-scaled.png' : {
       name : 'Create web scale composite images',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
@@ -84,7 +84,7 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
     },
 
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/web_scaled.png' : {
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/web-scaled.png' : {
       name : 'Create web scale composite images',
       worker : WORKERS.NODE_IMAGE_UTILS,
       dependencies : [{
