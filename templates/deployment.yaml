@@ -52,7 +52,7 @@ services:
     ports:
       - "${HOST_PORT:-3000}:3000"
     environment:
-      - API_SERVICES=ws-service:ws
+      - "API_SERVICES=ws-service:ws stream-status-service:status"
     restart: always
 
   expire:
