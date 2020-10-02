@@ -22,6 +22,18 @@ services:
     depends_on:
       - "zookeeper"
 
+  ksqldb:
+    image: confluentinc/ksqldb-server:0.12.0
+    hostname: ksqldb
+    container_name: ksqldb
+    depends_on:
+      - kafka
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: kafka:9092
+
   mongo:
     image: {{MONGO_IMAGE_NAME}}:{{MONGO_TAG}}
     volumes:
@@ -54,7 +66,7 @@ services:
     ports:
       - "${HOST_PORT:-3000}:3000"
     environment:
-      - API_SERVICES="ws-service:ws stream-status-service:status"
+      - "API_SERVICES=ws-service:ws stream-status-service:status"
     # command: bash -c 'tail -f /dev/null'
 
   expire:
@@ -117,14 +129,14 @@ services:
       - WORKER_TYPE=node.status.worker
     # command: bash -c 'tail -f /dev/null'
 
-  # stream-status-service:
-  #   image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - ./storage:/storage/nfs
-  #     - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/status/service/index.js:/command/index.js
-    # command: bash -c 'tail -f /dev/null'
+  stream-status-service:
+    image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/status/service/index.js:/service/index.js
+    command: bash -c 'tail -f /dev/null'
 
   decoder:
     image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -139,7 +151,7 @@ services:
       - ../docker.key:/root/.ssh/id_rsa
       - ./testsecdecorded.dat:/service/testsecdecorded.dat
     restart: always
-  # command: bash -c 'tail -f /dev/null'
+    command: bash -c 'tail -f /dev/null'
 
   decoder-krm-interface:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
