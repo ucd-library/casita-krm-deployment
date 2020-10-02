@@ -33,7 +33,7 @@ services:
       - "15672:15672" # guest/guest
 
   controller:
-    image: ucdlib/krm-controller:main
+    image: ucdlib/krm-controller:dev
     env_file:
       - .env
     volumes:
@@ -43,7 +43,7 @@ services:
     restart: always
 
   api:
-    image: ucdlib/krm-api:main
+    image: ucdlib/krm-api:dev
     env_file:
       - .env
     volumes:
@@ -56,7 +56,7 @@ services:
     restart: always
 
   expire:
-    image: ucdlib/krm-expire:main
+    image: ucdlib/krm-expire:dev
     env_file:
       - .env
     volumes:
@@ -65,7 +65,7 @@ services:
     restart: always
 
   router:
-    image: ucdlib/krm-router:main
+    image: ucdlib/krm-router:dev
     env_file:
       - .env
     volumes:
@@ -80,7 +80,7 @@ services:
     restart: always
 
   default-worker:
-    image: ucdlib/krm-worker:main
+    image: ucdlib/krm-worker:dev
     env_file:
       - .env
     volumes:
