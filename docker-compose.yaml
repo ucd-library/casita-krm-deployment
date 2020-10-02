@@ -108,6 +108,13 @@ services:
     environment:
       - WORKER_TYPE=node.status.worker
 
+  stream-status-service:
+    image: ucdlib/krm-node-stream-status-service:main
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+
   decoder-krm-interface:
     image: ucdlib/casita-decoder-krm-interface:main
     env_file:

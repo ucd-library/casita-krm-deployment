@@ -108,6 +108,13 @@ services:
     environment:
       - WORKER_TYPE=node.status.worker
 
+  stream-status-service:
+    image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+
   decoder-krm-interface:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
