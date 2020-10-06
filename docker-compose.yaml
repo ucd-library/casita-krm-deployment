@@ -99,6 +99,15 @@ services:
     environment:
       - WORKER_TYPE=node.image.worker
 
+  generic-payload-worker:
+    image: ucdlib/krm-generic-payload-worker:main
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+    environment:
+      - WORKER_TYPE=generic.payload.worker
+
   stream-status-worker:
     image: ucdlib/krm-node-stream-status-worker:main
     env_file:

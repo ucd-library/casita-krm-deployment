@@ -49,6 +49,7 @@ services:
     image: {{CONTROLLER_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
       - .env
+    restart: always
     volumes:
       - ./storage:/storage/nfs
       - ./graph:/etc/krm/graph
@@ -81,6 +82,7 @@ services:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
       - .env
+    restart: always
     volumes:
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/router/index.js:/service/index.js
       - ./graph:/etc/krm/graph
@@ -118,6 +120,17 @@ services:
       - WORKER_TYPE=node.image.worker
     # command: bash -c 'tail -f /dev/null'
 
+  generic-payload-worker:
+    image: {{GENERIC_PAYLOAD_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/generic-payload-parser/index.js:/command/index.js
+    environment:
+      - WORKER_TYPE=generic.payload.worker
+    # command: bash -c 'tail -f /dev/null'
+
   stream-status-worker:
     image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
@@ -143,7 +156,7 @@ services:
     env_file:
       - .env
     environment:
-      - GRB_FILE=decoded
+      - GRB_FILE=secdecoded
       - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder/index.js:/service/index.js
@@ -157,6 +170,7 @@ services:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:
       - .env
+    restart: always
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder-krm-interface/index.js:/service/index.js
