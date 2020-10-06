@@ -4,6 +4,7 @@ const {URL} = require('url');
 const compositeReady = require('./composite-ready');
 
 const IMAGE_SCALES = /^(mesoscale|conus|fulldisk|solar-imagery-euv-data)$/;
+const GENERIC_PAYLOAD_APIDS = /^(301|302)$/;
 
 const WORKERS = {
   DEFAULT : 'default.worker',
