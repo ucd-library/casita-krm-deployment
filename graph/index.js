@@ -93,6 +93,18 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
     },
 
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.json' : {
+      name : 'Generic payload parser',
+      worker : WORKERS.GENERIC,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.bin',
+        constraints : {
+          apid : GENERIC_PAYLOAD_APIDS
+        }
+      }],
+      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
+    },
+
     'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
