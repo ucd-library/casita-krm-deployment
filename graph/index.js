@@ -9,7 +9,8 @@ const GENERIC_PAYLOAD_APIDS = /^(301|302)$/;
 const WORKERS = {
   DEFAULT : 'default.worker',
   NODE_IMAGE_UTILS : 'node.image.worker',
-  NODE_STATUS : 'node.status.worker'
+  NODE_STATUS : 'node.status.worker',
+  GENERIC : 'generic.payload.worker'
 }
 
 module.exports = {
@@ -111,8 +112,6 @@ module.exports = {
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
         subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
-      },{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/metadata.json',
       }],
       command : (uri, msg, config) => `stream-status ${config.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`
     }
