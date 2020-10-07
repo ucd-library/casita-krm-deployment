@@ -127,6 +127,7 @@ services:
     volumes:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/generic-payload-parser/index.js:/command/index.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/generic-payload-parser/lib:/command/lib
     environment:
       - WORKER_TYPE=generic.payload.worker
     # command: bash -c 'tail -f /dev/null'

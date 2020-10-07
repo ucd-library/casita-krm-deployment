@@ -95,6 +95,18 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
     },
 
+    'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.json' : {
+      name : 'Generic payload parser',
+      worker : WORKERS.GENERIC,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.bin',
+        constraints : {
+          apid : GENERIC_PAYLOAD_APIDS
+        }
+      }],
+      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
+    },
+
     'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.json' : {
       name : 'Generic payload parser',
       worker : WORKERS.GENERIC,
@@ -105,6 +117,24 @@ module.exports = {
         }
       }],
       command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
+    },
+
+    'file:///west/{scale}/{date}/{hour}/{minsec}/summary/301/stats.json' : {
+      name : 'Generic payload parser',
+      worker : WORKERS.GENERIC,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/301/payload.json'
+      }],
+      options : {
+        ready : (uri, msg, config) => {
+          let pathname = path.parse(uri.pathname).dir;
+          pathname = path.join(config.fs.nfsRoot, pathname, '..', '..');
+          let count = fs.readdirSync(pathname).length;
+
+          return ( msg.data.ready.length >= count );
+        }
+      },
+      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${uri.pathname}`
     },
 
     'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
