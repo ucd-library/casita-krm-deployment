@@ -22,6 +22,18 @@ services:
     depends_on:
       - "zookeeper"
 
+  ksqldb:
+    image: confluentinc/ksqldb-server:0.12.0
+    hostname: ksqldb
+    container_name: ksqldb
+    depends_on:
+      - kafka
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_LISTENERS: http://0.0.0.0:8088
+      KSQL_BOOTSTRAP_SERVERS: kafka:9092
+
   mongo:
     image: mongo:4.2
     volumes:

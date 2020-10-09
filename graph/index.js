@@ -36,7 +36,7 @@ module.exports = {
           return ( msg.data.ready.length >= count);
         }
       },
-      command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname} --rm-fragments`
+      command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname}`
     },
 
     'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
