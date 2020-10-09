@@ -142,6 +142,9 @@ module.exports = {
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
         subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
+        constraints : {
+          band : /^(1|2)$/
+        }
       }],
       command : (uri, msg, config) => `stream-status ${config.fs.nfsRoot} ${new URL(msg.data.ready[0]).pathname}`
     }

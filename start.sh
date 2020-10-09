@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker-compose up --scale image-worker=10 -d 
+docker-compose up --scale image-worker=15 -d 
