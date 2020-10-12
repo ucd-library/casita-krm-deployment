@@ -100,6 +100,8 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=default.worker
+    restart: always
+
 
   image-worker:
     image: {{NODE_IMAGE_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -110,6 +112,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=node.image.worker
+    restart: always
 
   generic-payload-worker:
     image: {{GENERIC_PAYLOAD_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -119,6 +122,7 @@ services:
       - ./storage:/storage/nfs
     environment:
       - WORKER_TYPE=generic.payload.worker
+    restart: always
 
   stream-status-worker:
     image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -128,6 +132,7 @@ services:
       - ./storage:/storage/nfs
     environment:
       - WORKER_TYPE=node.status.worker
+    restart: always
 
   stream-status-service:
     image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
@@ -135,6 +140,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+    restart: always
 
   decoder-krm-interface:
     image: {{DECORDER_KRM_INTERFACE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}

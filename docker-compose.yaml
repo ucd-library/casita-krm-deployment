@@ -100,6 +100,8 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=default.worker
+    restart: always
+
 
   image-worker:
     image: ucdlib/krm-node-image-worker:main
@@ -110,6 +112,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=node.image.worker
+    restart: always
 
   generic-payload-worker:
     image: ucdlib/krm-generic-payload-worker:main
@@ -119,6 +122,7 @@ services:
       - ./storage:/storage/nfs
     environment:
       - WORKER_TYPE=generic.payload.worker
+    restart: always
 
   stream-status-worker:
     image: ucdlib/krm-node-stream-status-worker:main
@@ -128,6 +132,7 @@ services:
       - ./storage:/storage/nfs
     environment:
       - WORKER_TYPE=node.status.worker
+    restart: always
 
   stream-status-service:
     image: ucdlib/krm-node-stream-status-service:main
@@ -135,6 +140,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+    restart: always
 
   decoder-krm-interface:
     image: ucdlib/casita-decoder-krm-interface:main
