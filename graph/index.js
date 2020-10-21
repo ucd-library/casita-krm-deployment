@@ -60,7 +60,8 @@ module.exports = {
       }],
       options : {
         ready : compositeReady.conus,
-        timeout : 10 * 60 * 1000
+        timeout : 10 * 60 * 1000,
+        readyDelay : 2 * 1000
       },
        command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
     },
