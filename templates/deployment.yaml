@@ -131,6 +131,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=node.status.worker
     restart: always
@@ -141,6 +142,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
   decoder-krm-interface:
@@ -149,6 +151,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
   secdecoder-krm-interface:
@@ -157,6 +160,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
   decoder:
@@ -168,6 +172,7 @@ services:
       - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ./docker.key:/root/.ssh/id_rsa
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
   secdecoder:
@@ -177,6 +182,7 @@ services:
     environment:
       - GRB_FILE=secdecoded
       - TARGET_URL=http://secdecoder-krm-interface:3000
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     volumes:
       - ./docker.key:/root/.ssh/id_rsa
     restart: always
