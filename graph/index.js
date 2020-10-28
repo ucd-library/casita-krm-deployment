@@ -138,15 +138,31 @@ module.exports = {
       command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${uri.pathname}`
     },
 
-    'http://casita.library.ucdavis.edu/stream-status/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
+    'http://custom.googleapis.com/grb/time_to_disk/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}' : {
       name : 'GRB Stream Status',
       worker : WORKERS.NODE_STATUS,
       dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/fragment-metadata.json',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/blocks/{block}/fragment-metadata.json',
       },{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/metadata.json',
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/metadata.json',
       }],
-      command : (uri, msg, config) => `${new URL(msg.data.ready[0]).pathname}`
+      command : (uri, msg, config) => ({
+        type : 'time_to_disk',
+        file : `${new URL(msg.data.ready[0]).pathname}`
+      })
+    },
+
+    'http://custom.googleapis.com/krm/comp_png_gen_time/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
+      name : 'GRB Stream Status',
+      worker : WORKERS.NODE_STATUS,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+      }],
+      command : (uri, msg, config) => ({
+        type : 'comp_png_gen_time',
+        file : `${new URL(msg.data.ready[0]).pathname}`
+      })
     }
+
   }
 }
