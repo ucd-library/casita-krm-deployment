@@ -89,6 +89,26 @@ docker build \
   -t $ROUTER_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/router
 
+######### WS SERVICE ############
+
+echo "building: $WS_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg NODEJS_BASE=${NODEJS_BASE} \
+  --cache-from $WS_SERVICE_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $WS_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG \
+  $REPOSITORY_DIR/$KRM_REPO_NAME/public-events/ws
+
+######### HTTP2 SERVICE ############
+
+echo "building: $HTTP2_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg NODEJS_BASE=${NODEJS_BASE} \
+  --cache-from $HTTP2_SERVICE_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $HTTP2_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG \
+  $REPOSITORY_DIR/$KRM_REPO_NAME/public-events/http2
+
 ######### BUILD DECODER ############
 
 echo "building: $GRB_DECORDER_IMAGE_NAME:$CASITA_TASKS_TAG"
@@ -148,14 +168,3 @@ docker build \
   --cache-from $NODE_STREAM_STATUS_SERVICE_IMAGE_NAME:$DOCKER_CACHE_TAG \
   -t $NODE_STREAM_STATUS_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG \
   $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/status/service
-
-
-######### WS SERVICE ############
-
-echo "building: $WS_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG"
-docker build \
-  --build-arg BUILDKIT_INLINE_CACHE=1 \
-  --build-arg NODEJS_BASE=${NODEJS_BASE} \
-  --cache-from $WS_SERVICE_IMAGE_NAME:$DOCKER_CACHE_TAG \
-  -t $WS_SERVICE_IMAGE_NAME:$CASITA_TASKS_TAG \
-  $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/ws-service
