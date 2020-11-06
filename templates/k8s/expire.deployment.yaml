@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expire-deployment
+spec:
+  selector:
+    matchLabels:
+      app: expire
+  template:
+    metadata:
+      labels:
+        app: expire
+    spec:
+      containers:
+      - name: expire
+        image: {{EXPIRE_IMAGE_NAME}}:{{KRM_TAG}}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "300Mi"
+            cpu: "100m"
+        volumeMounts:
+        - mountPath: /storage
+          name: nfspsc
+      volumes:
+      - name: nfspsc
+        persistentVolumeClaim:
+          claimName: nfs-persistent-storage-claim
+          readOnly: false
+      nodeSelector:
+        intendedfor: system

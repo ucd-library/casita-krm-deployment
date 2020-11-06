@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: default-worker-deployment
+spec:
+  selector:
+    matchLabels:
+      app: default-worker
+  template:
+    metadata:
+      labels:
+        app: default-worker
+    spec:
+      containers:
+      - name: default-worker
+        image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - mountPath: /storage
+          name: nfspsc
+      volumes:
+      - name: nfspsc
+        persistentVolumeClaim:
+          claimName: nfs-persistent-storage-claim
+          readOnly: false
+      nodeSelector:
+        intendedfor: system

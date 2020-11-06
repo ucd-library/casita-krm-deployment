@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: decoder-deployment
+spec:
+  selector:
+    matchLabels:
+      app: decoder
+  template:
+    metadata:
+      labels:
+        app: decoder
+    spec:
+      containers:
+      - name: decoder
+        image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+        imagePullPolicy: Always
+        env:
+        - name: GRB_FILE
+          value: "decoded"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: ssh-rsa-key
+          mountPath: /root/.ssh/id_rsa
+      volumes:
+      - name: ssh-rsa-key
+        secret:
+          secretName: ssh-rsa-key
+      nodeSelector:
+        intendedfor: system

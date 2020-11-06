@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ws-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ws-deployment
+  template:
+    metadata:
+      labels:
+        app: ws-deployment
+    spec:
+      containers:
+      - name: ws-deployment
+        image: {{WS_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+      nodeSelector:
+        intendedfor: system

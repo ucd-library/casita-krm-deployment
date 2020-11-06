@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: h2-deployment
+spec:
+  selector:
+    matchLabels:
+      app: h2-deployment
+  template:
+    metadata:
+      labels:
+        app: h2-deployment
+    spec:
+      containers:
+      - name: h2-deployment
+        image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+      nodeSelector:
+        intendedfor: system

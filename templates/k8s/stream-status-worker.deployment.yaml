@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stream-status-worker-deployment
+spec:
+  selector:
+    matchLabels:
+      app: stream-status-worker
+  template:
+    metadata:
+      labels:
+        app: stream-status-worker
+    spec:
+      containers:
+      - name: stream-status-worker
+        image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "800m"
+        volumeMounts:
+        - mountPath: /storage
+          name: nfspsc
+      volumes:
+      - name: nfspsc
+        persistentVolumeClaim:
+          claimName: nfs-persistent-storage-claim
+          readOnly: false
+      nodeSelector:
+        intendedfor: system
