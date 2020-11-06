@@ -15,6 +15,9 @@ spec:
       - name: stream-status-worker
         image: {{NODE_STREAM_STATUS_WORKER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
         imagePullPolicy: Always
+        env:
+        - name: KRM_ENV
+          value: "{{K8S_KRM_ENV}}"
         resources:
           requests:
             memory: "1Gi"

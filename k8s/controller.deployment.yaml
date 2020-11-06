@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: default-worker-deployment
+  name: controller-deployment
 spec:
   selector:
     matchLabels:
-      app: default-worker
+      app: controller
   template:
     metadata:
       labels:
-        app: default-worker
+        app: controller
     spec:
       containers:
-      - name: default-worker
-        image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+      - name: controller
+        image: ucdlib/krm-controller:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "k8s-local-dev"
         resources:
           requests:
             memory: "1Gi"

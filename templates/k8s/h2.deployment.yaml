@@ -15,6 +15,9 @@ spec:
       - name: h2-deployment
         image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
         imagePullPolicy: Always
+        env:
+        - name: KRM_ENV
+          value: "{{K8S_KRM_ENV}}"
         resources:
           requests:
             memory: "1Gi"

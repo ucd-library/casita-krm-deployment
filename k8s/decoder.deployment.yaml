@@ -13,13 +13,13 @@ spec:
     spec:
       containers:
       - name: decoder
-        image: {{GRB_DECORDER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+        image: ucdlib/grb-decoder:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "k8s-local-dev"
         - name: SSH_KEY_USERNAME
-          value: "{{K8S_SSH_KEY_USERNAME}}"
+          value: "jrmerz"
         - name: GRB_FILE
           value: "decoded"
         resources:

@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: default-worker-deployment
+  name: image-worker-deployment
 spec:
   selector:
     matchLabels:
-      app: default-worker
+      app: image-worker
   template:
     metadata:
       labels:
-        app: default-worker
+        app: image-worker
     spec:
       containers:
-      - name: default-worker
-        image: {{WORKER_IMAGE_NAME}}:{{KRM_TAG}}
+      - name: image-worker
+        image: ucdlib/krm-node-image-worker:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "k8s-local-dev"
         resources:
           requests:
             memory: "1Gi"
-            cpu: "1000m"
+            cpu: "800m"
         volumeMounts:
         - mountPath: /storage
           name: nfspsc

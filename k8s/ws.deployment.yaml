@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: router-deployment
+  name: ws-deployment
 spec:
   selector:
     matchLabels:
-      app: router
+      app: ws-deployment
   template:
     metadata:
       labels:
-        app: router
+        app: ws-deployment
     spec:
       containers:
-      - name: router
-        image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}
+      - name: ws-deployment
+        image: ucdlib/krm-ws-service:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "k8s-local-dev"
         resources:
           requests:
             memory: "1Gi"
