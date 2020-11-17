@@ -105,6 +105,7 @@ services:
   h2-service:
     image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
+      - ../mounts/event-shortcuts.js:/etc/krm/event-shortcuts.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/public-events/http2/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     env_file:

@@ -17,7 +17,7 @@ spec:
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "k8s-local-dev"
+          value: "{{K8S_KRM_ENV}}"
         resources:
           requests:
             memory: "300Mi"

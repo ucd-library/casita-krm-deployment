@@ -51,7 +51,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
-      - ./graph:/etc/krm/graph
+      - ./mounts/graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
@@ -82,7 +82,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./graph:/etc/krm/graph
+      - ./mounts/graph:/etc/krm/graph
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
@@ -96,6 +96,8 @@ services:
     image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
       - .env
+    volumnes:
+      - ./mounts/event-shortcuts.js:/etc/krm/event-shortcuts.js
     ports:
       - "${H2_EVENT_PORT:-3001}:3000"
     restart: always

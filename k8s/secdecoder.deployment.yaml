@@ -17,9 +17,9 @@ spec:
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "k8s-local-dev"
+          value: "{{K8S_KRM_ENV}}"
         - name: SSH_KEY_USERNAME
-          value: "jrmerz"
+          value: "{{K8S_SSH_KEY_USERNAME}}"
         - name: GRB_FILE
           value: "secdecoded"
         resources:
