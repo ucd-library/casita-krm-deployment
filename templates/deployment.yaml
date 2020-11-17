@@ -96,7 +96,7 @@ services:
     image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
       - .env
-    volumnes:
+    volumes:
       - ./mounts/event-shortcuts.js:/etc/krm/event-shortcuts.js
     ports:
       - "${H2_EVENT_PORT:-3001}:3000"
