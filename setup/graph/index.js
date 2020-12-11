@@ -14,8 +14,6 @@ const WORKERS = {
 }
 
 module.exports = {
-  name : 'casita',
-  graph : {
 
     'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png' : {
       name : 'Merge and convert JP2 fragments',
@@ -163,6 +161,4 @@ module.exports = {
         file : `${new URL(msg.data.ready[0]).pathname}`
       })
     }
-
-  }
 }

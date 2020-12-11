@@ -53,7 +53,7 @@ services:
     restart: always
     volumes:
       - ./storage:/storage/nfs
-      - ./graph:/etc/krm/graph
+      - ../setup:/etc/krm/setup
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/index.js:/service/index.js
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/controller/lib:/service/lib
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
@@ -64,13 +64,12 @@ services:
     env_file:
       - .env
     volumes:
+      - ../setup:/etc/krm/setup
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
       - "${HOST_PORT:-3000}:3000"
-    environment:
-      - "API_SERVICES=ws-service:ws stream-status-service:status"
     # command: bash -c 'tail -f /dev/null'
 
   expire:
@@ -88,14 +87,15 @@ services:
       - .env
     restart: always
     volumes:
+      - ../setup:/etc/krm/setup
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/router/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
-      - ./graph:/etc/krm/graph
   # command: bash -c 'tail -f /dev/null'
 
   ws-service:
     image: {{WS_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
+      - ../setup:/etc/krm/setup
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/public-events/ws/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     env_file:
@@ -105,7 +105,7 @@ services:
   h2-service:
     image: {{HTTP2_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     volumes:
-      - ../mounts/event-shortcuts.js:/etc/krm/event-shortcuts.js
+      - ../setup:/etc/krm/setup
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/public-events/http2/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     env_file:

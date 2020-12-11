@@ -51,7 +51,7 @@ services:
       - .env
     volumes:
       - ./storage:/storage/nfs
-      - ./mounts/graph:/etc/krm/graph
+      - ./setup:/etc/krm/setup
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
@@ -60,12 +60,11 @@ services:
     env_file:
       - .env
     volumes:
+      - ./setup:/etc/krm/setup
       - ./storage:/storage/nfs
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
       - "${HOST_PORT:-3000}:3000"
-    environment:
-      - "API_SERVICES=ws-service:ws h2-service:h2 stream-status-service:status"
     restart: always
 
   expire:
@@ -82,7 +81,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./mounts/graph:/etc/krm/graph
+      - ./setup:/etc/krm/setup
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
 
@@ -90,6 +89,8 @@ services:
     image: {{WS_SERVICE_IMAGE_NAME}}:{{KRM_TAG}}
     env_file:
       - .env
+    volumes:
+      - ./setup:/etc/krm/setup
     restart: always
 
   h2-service:
@@ -97,7 +98,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./mounts/event-shortcuts.js:/etc/krm/event-shortcuts.js
+      - ./setup:/etc/krm/setup
     ports:
       - "${H2_EVENT_PORT:-3001}:3000"
     restart: always
