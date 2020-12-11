@@ -185,7 +185,6 @@ services:
       - ./docker.key:/root/.ssh/id_rsa
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     restart: always
-    command: bash -c 'tail -f /dev/null'
 
   secdecoder:
     image: ucdlib/grb-decoder:main
@@ -198,7 +197,6 @@ services:
     volumes:
       - ./docker.key:/root/.ssh/id_rsa
     restart: always
-    command: bash -c 'tail -f /dev/null'
 
 volumes:
   kafka-data:
