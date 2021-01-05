@@ -1,28 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stream-status-deployment
+  name: decoder-krm-interface-deployment
 spec:
+  replicas: 2
   selector:
     matchLabels:
-      app: stream-status
+      app: decoder-krm-interface
   template:
     metadata:
       labels:
-        app: stream-status
-    replicas: 2
+        app: decoder-krm-interface
     spec:
       containers:
-      - name: stream-status
+      - name: decoder-krm-interface
         image: ucdlib/casita-decoder-krm-interface:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "gce-prod"
         resources:
-          requests:
+          limits:
             memory: "1Gi"
-            cpu: "1000m"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
         volumeMounts:
         - mountPath: /storage
           name: nfspsc
@@ -32,4 +35,4 @@ spec:
           claimName: nfs-persistent-storage-claim
           readOnly: false
       nodeSelector:
-        intendedfor: system
+        intendedfor: decoders

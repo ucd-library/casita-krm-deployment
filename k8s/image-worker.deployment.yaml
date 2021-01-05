@@ -17,11 +17,14 @@ spec:
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
-          value: "{{K8S_KRM_ENV}}"
+          value: "gce-prod"
         resources:
-          requests:
+          limits:
             memory: "1Gi"
-            cpu: "800m"
+            cpu: "1"
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
         volumeMounts:
         - mountPath: /storage
           name: nfspsc

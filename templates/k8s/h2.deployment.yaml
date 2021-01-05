@@ -19,8 +19,11 @@ spec:
         - name: KRM_ENV
           value: "{{K8S_KRM_ENV}}"
         resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
           requests:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: "32Mi"
+            cpu: "100m"
       nodeSelector:
         intendedfor: system

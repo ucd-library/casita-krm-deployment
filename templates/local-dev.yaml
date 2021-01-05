@@ -67,6 +67,8 @@ services:
       - ../setup:/etc/krm/setup
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/index.js:/service/index.js
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/controllers:/service/controllers
+      - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/api/lib:/service/lib
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     ports:
       - "${HOST_PORT:-3000}:3000"

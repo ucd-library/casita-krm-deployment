@@ -23,15 +23,18 @@ spec:
         - name: GRB_FILE
           value: "decoded"
         resources:
-          requests:
+          limits:
             memory: "1Gi"
-            cpu: "1000m"
+            cpu: "1"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
         volumeMounts:
-        - name: ssh-rsa-key
+        - name: decoder-ssh-key
           mountPath: /root/.ssh/id_rsa
       volumes:
-      - name: ssh-rsa-key
+      - name: decoder-ssh-key
         secret:
-          secretName: ssh-rsa-key
+          secretName: decoder-ssh-key
       nodeSelector:
-        intendedfor: system
+        intendedfor: decoders

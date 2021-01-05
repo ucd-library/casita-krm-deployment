@@ -26,11 +26,14 @@ spec:
         - name: zookeeper-datalog-persistent-storage
           mountPath: /datalog
         resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1"
           requests:
-            memory: "500Mi"
-            cpu: "300m"
+            memory: "32Mi"
+            cpu: "100m"
       nodeSelector:
-        intendedfor: system
+        intendedfor: kafka
   volumeClaimTemplates:
   - metadata:
       name: zookeeper-data-persistent-storage
