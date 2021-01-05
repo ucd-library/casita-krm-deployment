@@ -19,7 +19,10 @@ spec:
         - name: KRM_ENV
           value: "gce-prod"
         - name: SSH_KEY_USERNAME
-          value: "jrmerz"
+          valueFrom:
+            secretKeyRef:
+              name: decoder-ssh-user
+              key: ssh-username
         - name: GRB_FILE
           value: "secdecoded"
         resources:

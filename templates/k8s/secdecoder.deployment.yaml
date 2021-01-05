@@ -19,7 +19,10 @@ spec:
         - name: KRM_ENV
           value: "{{K8S_KRM_ENV}}"
         - name: SSH_KEY_USERNAME
-          value: "{{K8S_SSH_KEY_USERNAME}}"
+          valueFrom:
+            secretKeyRef:
+              name: decoder-ssh-user
+              key: ssh-username
         - name: GRB_FILE
           value: "secdecoded"
         resources:

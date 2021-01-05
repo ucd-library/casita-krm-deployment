@@ -105,4 +105,3 @@ GKE_CLUSTER_NAME=casita-krm
 GC_PROJECT_ID=casita-298223
 GC_ZONE=us-central1-c
 K8S_KRM_ENV=gce-prod
-K8S_SSH_KEY_USERNAME=jrmerz

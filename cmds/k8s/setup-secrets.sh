@@ -21,3 +21,6 @@ gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
 
 kubectl delete secret decoder-ssh-key || true
 kubectl create secret generic decoder-ssh-key --from-file=docker.key=../../docker.key || true
+
+echo 'Make sure and set the decoder-ssh-user secret:'
+echo 'kubectl create secret generic decoder-ssh-user --from-literal=ssh-username=""'
