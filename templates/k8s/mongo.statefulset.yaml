@@ -30,7 +30,7 @@ spec:
             memory: "128Mi"
             cpu: "100m"
       nodeSelector:
-        intendedfor: system
+        intendedfor: krm-services
   # TODO: look to switch to: 
   # https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/preexisting-pd
   volumeClaimTemplates:

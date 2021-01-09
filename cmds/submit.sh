@@ -11,9 +11,10 @@ set -e
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 cd $ROOT_DIR/..
 
-gcloud config set project digital-ucdavis-edu
+source config.sh
+gcloud config set project ${GC_PROJECT_ID}
 
-echo "Submitting build to Google Cloud..."
+echo "Submitting build to Google Cloud project ${GC_PROJECT_ID}..."
 gcloud builds submit \
   --config ./gcloud/cloudbuild.yaml \
   --substitutions=REPO_NAME=$(basename $(git remote get-url origin)),TAG_NAME=$(git describe --tags --abbrev=0),BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD),SHORT_SHA=$(git log -1 --pretty=%h) \

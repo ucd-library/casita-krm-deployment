@@ -1,0 +1,25 @@
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd $DIR/../..
+
+source ./config.sh
+# source ./cmds/k8s/cluster-config/load.sh || true
+
+kubectl apply -f ./$DEPLOYMENT_DIR/mongo.statefulset.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/mongo.service.yaml
+
+kubectl apply -f ./$DEPLOYMENT_DIR/rabbitmq.statefulset.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/rabbitmq.service.yaml
+
+kubectl apply -f ./$DEPLOYMENT_DIR/api.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/api.service.yaml
+
+kubectl apply -f ./$DEPLOYMENT_DIR/router.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/controller.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/expire.deployment.yaml
+
+kubectl apply -f ./$DEPLOYMENT_DIR/h2.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/h2.service.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/ws.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/ws.service.yaml

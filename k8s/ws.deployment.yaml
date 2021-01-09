@@ -18,6 +18,8 @@ spec:
         env:
         - name: KRM_ENV
           value: "gce-prod"
+        - name: KAFKA_HOST
+          value: "kafka-service"
         resources:
           limits:
             memory: "256Mi"
@@ -26,4 +28,4 @@ spec:
             memory: "32Mi"
             cpu: "100m"
       nodeSelector:
-        intendedfor: system
+        intendedfor: krm-services

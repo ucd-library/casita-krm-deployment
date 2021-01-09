@@ -9,8 +9,8 @@ source ../../config.sh
 gcloud beta container clusters create ${GKE_CLUSTER_NAME} \
   --zone ${GC_ZONE} \
   --num-nodes 3 \
-  --disk-size 50GB \
-  --release-channel=regular
+  --disk-size 20GB \
+  --release-channel=regular \
   --machine-type e2-medium \
   --node-labels=intendedfor=krm-services
   # --cluster-version=${GKE_CLUSTER_VERSION} \
@@ -21,7 +21,7 @@ gcloud beta container node-pools create decoders \
   --zone ${GC_ZONE} \
   --machine-type e2-medium \
   --num-nodes 1 \
-  --disk-size 50GB \
+  --disk-size 20GB \
   --node-labels=intendedfor=decoders
 
 # create kafka instance
@@ -30,7 +30,7 @@ gcloud beta container node-pools create kafka \
   --zone ${GC_ZONE} \
   --machine-type e2-medium \
   --num-nodes 1 \
-  --disk-size 500GB \
+  --disk-size 20GB \
   --node-labels=intendedfor=kafka
 
 # create scalable worker pool
@@ -44,10 +44,5 @@ gcloud beta container node-pools create worker-pool \
   --node-labels=intendedfor=worker \
   --enable-autoscaling --min-nodes 2 --max-nodes 10
 
-# setup kubectl to connect to cluster
-gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
-  --zone ${GC_ZONE} \
-  --project ${GC_PROJECT_ID}
-
 # set cluster secrets
-# $ROOT_DIR/set-secrets.sh
+$ROOT_DIR/setup-secrets.sh
