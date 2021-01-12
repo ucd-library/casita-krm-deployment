@@ -2,7 +2,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: h2-service
+  annotations:
+    cloud.google.com/load-balancer-type: "Internal"
 spec:
+  type: LoadBalancer
+  loadBalancerIP: "{{H2_SERVICE_INTERNAL_IP}}"
   selector:
     app: h2-deployment
   ports:
