@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: api
+      app: api-deployment
   template:
     metadata:
       labels:
-        app: api
+        app: api-deployment
     spec:
       containers:
-      - name: api
+      - name: api-deployment
         image: {{API_IMAGE_NAME}}:{{KRM_TAG}}
         imagePullPolicy: Always
         env:

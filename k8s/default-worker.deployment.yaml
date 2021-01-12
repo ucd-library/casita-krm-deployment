@@ -18,6 +18,10 @@ spec:
         env:
         - name: KRM_ENV
           value: "gce-prod"
+        - name: RABBITMQ_HOST
+          value: rabbitmq-service
+        - name: WORKER_TYPE
+          value: default.worker
         resources:
           limits:
             memory: "512Mi"
@@ -34,4 +38,4 @@ spec:
           claimName: nfs-persistent-storage-claim
           readOnly: false
       nodeSelector:
-        intendedfor: system
+        intendedfor: worker

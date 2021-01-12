@@ -10,4 +10,4 @@ spec:
     - ReadWriteMany
   nfs:
     path: /casitakrm
-    server: 10.28.186.144
+    server: 172.30.21.26

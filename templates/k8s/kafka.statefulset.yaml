@@ -29,6 +29,9 @@ spec:
           value: "zookeeper-service:2181"
         - name: KAFKA_CFG_MESSAGE_MAX_BYTES
           value: "50000000"
+        command: ["/bin/sh"]
+        args: ["-c", "export KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka-service:9092; \
+          /opt/bitnami/scripts/kafka/entrypoint.sh /opt/bitnami/scripts/kafka/run.sh"]
         volumeMounts:
         - name: kafka-persistent-storage
           mountPath: /bitnami/kafka

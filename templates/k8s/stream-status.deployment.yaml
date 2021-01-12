@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: stream-status
+      app: stream-status-deployment
   template:
     metadata:
       labels:
-        app: stream-status
+        app: stream-status-deployment
     spec:
       containers:
-      - name: stream-status
+      - name: stream-status-deployment
         image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
         imagePullPolicy: Always
         env:
@@ -34,4 +34,4 @@ spec:
           claimName: nfs-persistent-storage-claim
           readOnly: false
       nodeSelector:
-        intendedfor: system
+        intendedfor: krm-services

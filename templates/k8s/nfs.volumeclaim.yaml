@@ -6,7 +6,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: ""
-  volumeName: nfs-persistent-storage-claim
+  volumeName: nfs-persistent-storage
   resources:
     requests:
       storage: 1T

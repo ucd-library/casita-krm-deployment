@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: stream-status
+      app: stream-status-deployment
   template:
     metadata:
       labels:
-        app: stream-status
+        app: stream-status-deployment
     spec:
       containers:
-      - name: stream-status
+      - name: stream-status-deployment
         image: ucdlib/krm-node-stream-status-service:main
         imagePullPolicy: Always
         env:
@@ -34,4 +34,4 @@ spec:
           claimName: nfs-persistent-storage-claim
           readOnly: false
       nodeSelector:
-        intendedfor: system
+        intendedfor: krm-services
