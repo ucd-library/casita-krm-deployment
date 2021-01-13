@@ -6,6 +6,10 @@ cd $DIR/../..
 source ./config.sh
 # source ./cmds/k8s/cluster-config/load.sh || true
 
+gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
+  --zone ${GC_ZONE} \
+  --project ${GC_PROJECT_ID}
+
 # additional services for default pool
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.service.yaml

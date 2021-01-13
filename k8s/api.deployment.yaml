@@ -11,10 +11,23 @@ spec:
       labels:
         app: api-deployment
     spec:
+      # 'mount' /etc/krm/setup on start
+      # https://stackoverflow.com/questions/30538210/how-to-mimic-volumes-from-in-kubernetes
+      initContainers:
+      - name: graph-setup-init
+        image: ucdlib/casita-krm-graph-setup:v0.0.1
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args: ["-c", "cp -r /setup/* /mnt/setup"]
+        volumeMounts:
+        - mountPath: /mnt/setup
+          name: graph-setup-volume
       containers:
       - name: api-deployment
         image: ucdlib/krm-api:dev
         imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
         env:
         - name: KRM_ENV
           value: "gce-prod"
@@ -26,12 +39,16 @@ spec:
             memory: "128Mi"
             cpu: "100m"
         volumeMounts:
-        - mountPath: /storage
+        - mountPath: /storage/nfs
           name: nfspsc
+        - mountPath: /etc/krm/setup
+          name: graph-setup-volume
       volumes:
       - name: nfspsc
         persistentVolumeClaim:
           claimName: nfs-persistent-storage-claim
           readOnly: false
+      - name: graph-setup-volume
+        emptyDir: {}
       nodeSelector:
         intendedfor: krm-services

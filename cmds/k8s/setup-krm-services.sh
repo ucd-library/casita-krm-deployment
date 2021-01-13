@@ -6,6 +6,10 @@ cd $DIR/../..
 source ./config.sh
 # source ./cmds/k8s/cluster-config/load.sh || true
 
+gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
+  --zone ${GC_ZONE} \
+  --project ${GC_PROJECT_ID}
+
 kubectl apply -f ./$DEPLOYMENT_DIR/mongo.statefulset.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/mongo.service.yaml
 

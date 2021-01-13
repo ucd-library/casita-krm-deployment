@@ -11,10 +11,21 @@ spec:
       labels:
         app: ws-deployment
     spec:
+      initContainers:
+      - name: graph-setup-init
+        image: ucdlib/casita-krm-graph-setup:v0.0.1
+        imagePullPolicy: Always
+        command: ["/bin/sh"]
+        args: ["-c", "cp -r /setup/* /mnt/setup"]
+        volumeMounts:
+        - mountPath: /mnt/setup
+          name: graph-setup-volume
       containers:
       - name: ws-deployment
         image: ucdlib/krm-ws-service:dev
         imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
         env:
         - name: KRM_ENV
           value: "gce-prod"
@@ -27,5 +38,11 @@ spec:
           requests:
             memory: "32Mi"
             cpu: "100m"
+        volumeMounts:
+        - mountPath: /etc/krm/setup
+          name: graph-setup-volume
+      volumes:
+      - name: graph-setup-volume
+        emptyDir: {}
       nodeSelector:
         intendedfor: krm-services

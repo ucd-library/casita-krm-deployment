@@ -30,7 +30,7 @@ spec:
             memory: "64Mi"
             cpu: "100m"
         volumeMounts:
-        - mountPath: /storage
+        - mountPath: /storage/nfs
           name: nfspsc
       volumes:
       - name: nfspsc
