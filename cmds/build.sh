@@ -109,6 +109,16 @@ docker build \
   -t $HTTP2_SERVICE_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/public-events/http2
 
+
+######### BUILD KAFKA CLI IMAGE ############
+
+echo "building: $KAFKA_CLI_IMAGE_NAME:$APP_VERSION"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --cache-from $KAFKA_CLI_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $KAFKA_CLI_IMAGE_NAME:$APP_VERSION \
+  $ROOT_DIR/../debug/kafka-cli
+
 ######### BUILD GRAPH SETUP IMAGE ############
 
 echo "building: $GRAPH_SETUP_IMAGE_NAME:$APP_VERSION"

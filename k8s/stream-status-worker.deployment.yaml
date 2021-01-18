@@ -20,6 +20,8 @@ spec:
           value: "gce-prod"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
+        - name: MONGO_HOST
+          value: "mongo-service"
         - name: WORKER_TYPE
           value: node.status.worker
         resources:

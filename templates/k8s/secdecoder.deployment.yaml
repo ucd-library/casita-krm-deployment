@@ -18,6 +18,10 @@ spec:
         env:
         - name: KRM_ENV
           value: "{{K8S_KRM_ENV}}"
+        - name: DECODER_KAFKA_HOST
+          value: kafka-service
+        - name: DECODER_KAFKA_PORT
+          value: "9092"
         - name: SSH_KEY_USERNAME
           valueFrom:
             secretKeyRef:
@@ -34,7 +38,7 @@ spec:
             cpu: "100m"
         volumeMounts:
         - name: decoder-ssh-key
-          mountPath: /root/.ssh/id_rsa
+          mountPath: /root/ssh-key
       volumes:
       - name: decoder-ssh-key
         secret:

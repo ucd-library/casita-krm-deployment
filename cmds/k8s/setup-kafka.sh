@@ -16,3 +16,5 @@ kubectl apply -f ./$DEPLOYMENT_DIR/zookeeper.service.yaml
 # kubectl delete deploy kafka || true
 kubectl apply -f ./$DEPLOYMENT_DIR/kafka.statefulset.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/kafka.service.yaml
+
+kubectl apply -f ./$DEPLOYMENT_DIR/kafka-cli.deployment.yaml

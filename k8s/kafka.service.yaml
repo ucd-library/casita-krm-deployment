@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: kafka-service
 spec:
-  type: ClusterIP
+  # type: ClusterIP
   selector:
     app: kafka
   ports:
   - name: kafka
     port: 9092
+    targetPort: 9092
     protocol: TCP

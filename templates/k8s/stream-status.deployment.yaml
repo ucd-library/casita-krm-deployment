@@ -18,6 +18,8 @@ spec:
         env:
         - name: KRM_ENV
           value: "{{K8S_KRM_ENV}}"
+        - name: MONGO_HOST
+          value: "mongo-service"
         resources:
           limits:
             memory: "128Mi"
