@@ -39,9 +39,14 @@ spec:
         volumeMounts:
         - name: decoder-ssh-key
           mountPath: /root/ssh-key
+        - mountPath: /etc/google
+          name: service-account
       volumes:
       - name: decoder-ssh-key
         secret:
           secretName: decoder-ssh-key
+      - name: service-account
+        secret:
+          secretName: service-account
       nodeSelector:
         intendedfor: decoders

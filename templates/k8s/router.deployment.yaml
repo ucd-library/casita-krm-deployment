@@ -41,8 +41,13 @@ spec:
         volumeMounts:
         - mountPath: /etc/krm/setup
           name: graph-setup-volume
+        - mountPath: /etc/google
+          name: service-account
       volumes:
       - name: graph-setup-volume
         emptyDir: {}
+      - name: service-account
+        secret:
+          secretName: service-account
       nodeSelector:
         intendedfor: krm-services

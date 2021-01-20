@@ -34,10 +34,15 @@ spec:
         volumeMounts:
         - mountPath: /storage/nfs
           name: nfspsc
+        - mountPath: /etc/google
+          name: service-account
       volumes:
       - name: nfspsc
         persistentVolumeClaim:
           claimName: nfs-persistent-storage-claim
           readOnly: false
+      - name: service-account
+        secret:
+          secretName: service-account
       nodeSelector:
         intendedfor: worker

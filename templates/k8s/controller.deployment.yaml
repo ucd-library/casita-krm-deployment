@@ -43,6 +43,10 @@ spec:
         volumeMounts:
         - mountPath: /storage/nfs
           name: nfspsc
+        - mountPath: /etc/google
+          name: service-account
+        - mountPath: /etc/krm/setup
+          name: graph-setup-volume
       volumes:
       - name: nfspsc
         persistentVolumeClaim:
@@ -50,5 +54,8 @@ spec:
           readOnly: false
       - name: graph-setup-volume
         emptyDir: {}
+      - name: service-account
+        secret:
+          secretName: service-account
       nodeSelector:
         intendedfor: krm-services
