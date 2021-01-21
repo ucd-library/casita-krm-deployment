@@ -20,6 +20,8 @@ spec:
           value: "{{K8S_KRM_ENV}}"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
+        - name: KAFKA_HOST
+          value: "kafka-service"
         - name: WORKER_TYPE
           value: node.image.worker
         resources:
@@ -27,8 +29,8 @@ spec:
             memory: "1Gi"
             cpu: "1"
           requests:
-            memory: "64Mi"
-            cpu: "100m"
+            memory: "128Mi"
+            cpu: "500m"
         volumeMounts:
         - mountPath: /storage/nfs
           name: nfspsc

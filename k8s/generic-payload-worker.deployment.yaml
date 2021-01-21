@@ -20,6 +20,8 @@ spec:
           value: "gce-prod"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
+        - name: KAFKA_HOST
+          value: "kafka-service"
         - name: WORKER_TYPE
           value: generic.payload.worker
         resources:

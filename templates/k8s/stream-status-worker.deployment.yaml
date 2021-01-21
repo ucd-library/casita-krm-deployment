@@ -20,6 +20,8 @@ spec:
           value: "{{K8S_KRM_ENV}}"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
+        - name: KAFKA_HOST
+          value: "kafka-service"
         - name: MONGO_HOST
           value: "mongo-service"
         - name: WORKER_TYPE
