@@ -82,6 +82,7 @@ services:
       - ./storage:/storage/nfs
       - ../{{REPOSITORY_DIR}}/{{KRM_REPO_NAME}}/expire/index.js:/service/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    # command: bash -c 'tail -f /dev/null'
 
   router:
     image: {{ROUTER_IMAGE_NAME}}:{{KRM_TAG}}

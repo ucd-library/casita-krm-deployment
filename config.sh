@@ -107,6 +107,9 @@ GKE_CLUSTER_NAME=casita-krm
 GC_PROJECT_ID=casita-298223
 GC_ZONE=us-central1-c
 K8S_KRM_ENV=gce-prod
+# setting this to "log" generates a lot of logs,
+# causes a pick spike in GC costs
+K8S_LOG_LEVEL=warn
 
 API_SERVICE_INTERNAL_IP=10.128.0.26
 H2_SERVICE_INTERNAL_IP=10.128.0.27

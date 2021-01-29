@@ -27,6 +27,8 @@ spec:
         env:
         - name: KRM_ENV
           value: "{{K8S_KRM_ENV}}"
+        - name: LOG_LEVEL
+          value: "{{K8S_LOG_LEVEL}}"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
         - name: KAFKA_HOST
