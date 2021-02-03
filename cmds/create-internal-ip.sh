@@ -27,3 +27,14 @@ echo ""
 echo "h2 service internal ip"
 gcloud compute addresses describe ${GKE_CLUSTER_NAME}-h2-ip \
   --region us-central1
+
+# reserve address to expose ws service internaly
+gcloud compute addresses create ${GKE_CLUSTER_NAME}-ws-ip \
+  --subnet default \
+  --region us-central1
+
+# print info about new address
+echo ""
+echo "h2 service internal ip"
+gcloud compute addresses describe ${GKE_CLUSTER_NAME}-ws-ip \
+  --region us-central1
