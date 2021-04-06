@@ -42,7 +42,7 @@ gcloud beta container node-pools create worker-pool \
   --disk-size 25GB \
   --preemptible \
   --node-labels=intendedfor=worker \
-  --enable-autoscaling --min-nodes 1 --max-nodes 5
+  --enable-autoscaling --min-nodes 1 --max-nodes 6
 # --machine-type n2-standard-4 \
 
 # set cluster secrets

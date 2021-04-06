@@ -27,7 +27,7 @@ kubectl autoscale deployment generic-payload-worker-deployment \
 
 kubectl apply -f ./$DEPLOYMENT_DIR/image-worker.deployment.yaml
 kubectl autoscale deployment image-worker-deployment \
-  --max 32 --min 10 \
+  --max 48 --min 10 \
   --cpu-percent 90 || true
 
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status-worker.deployment.yaml
