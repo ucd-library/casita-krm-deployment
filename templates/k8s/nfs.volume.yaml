@@ -9,5 +9,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /casitakrm
-    server: 172.30.21.26
+    path: {{FILESTORE_PATH}}
+    server: {{FILESTORE_IP}}
