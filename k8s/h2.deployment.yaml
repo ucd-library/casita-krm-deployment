@@ -13,7 +13,7 @@ spec:
     spec:
       initContainers:
       - name: graph-setup-init
-        image: ucdlib/casita-krm-graph-setup:v0.0.1
+        image: gcr.io/ucdlib-pubreg/casita-krm-graph-setup:v0.0.1
         imagePullPolicy: Always
         command: ["/bin/sh"]
         args: ["-c", "cp -r /setup/* /mnt/setup"]
@@ -22,7 +22,7 @@ spec:
           name: graph-setup-volume
       containers:
       - name: h2-deployment
-        image: ucdlib/krm-http2-service:dev
+        image: gcr.io/ucdlib-pubreg/krm-http2-service:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

@@ -18,19 +18,19 @@ kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.service.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/default-worker.deployment.yaml
 kubectl autoscale deployment default-worker-deployment \
   --max 2 --min 1 \
-  --cpu-percent 90 || true
+  --cpu-percent 70 || true
 
 kubectl apply -f ./$DEPLOYMENT_DIR/generic-payload-worker.deployment.yaml
 kubectl autoscale deployment generic-payload-worker-deployment \
   --max 5 --min 1 \
-  --cpu-percent 90 || true
+  --cpu-percent 70 || true
 
 kubectl apply -f ./$DEPLOYMENT_DIR/image-worker.deployment.yaml
 kubectl autoscale deployment image-worker-deployment \
   --max 48 --min 10 \
-  --cpu-percent 90 || true
+  --cpu-percent 60 || true
 
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status-worker.deployment.yaml
 kubectl autoscale deployment stream-status-worker-deployment \
   --max 2 --min 1 \
-  --cpu-percent 90 || true
+  --cpu-percent 70 || true

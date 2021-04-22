@@ -26,6 +26,8 @@ MONGO_TAG=4.2
 RABBITMQ_TAG=3.7.2-management
 KSQL_TAG=0.12.0
 
+CONTAINER_REG_ORG=gcr.io/ucdlib-pubreg
+
 DOCKER_CACHE_TAG="latest"
 LOCAL_TAG="local-dev"
 
@@ -46,22 +48,22 @@ CASITA_TASKS_REPO_URL=$GITHUB_ORG_URL/${CASITA_TASKS_REPO_NAME}
 # Docker
 ###
 
-GRB_DECORDER_IMAGE_NAME=ucdlib/grb-decoder
-DECORDER_KRM_INTERFACE_IMAGE_NAME=ucdlib/casita-decoder-krm-interface
-BASE_NODE_IMAGE_NAME=ucdlib/krm-node-utils
-WORKER_IMAGE_NAME=ucdlib/krm-worker
-NODE_IMAGE_WORKER_IMAGE_NAME=ucdlib/krm-node-image-worker
-GENERIC_PAYLOAD_WORKER_IMAGE_NAME=ucdlib/krm-generic-payload-worker
-NODE_STREAM_STATUS_WORKER_IMAGE_NAME=ucdlib/krm-node-stream-status-worker
-NODE_STREAM_STATUS_SERVICE_IMAGE_NAME=ucdlib/krm-node-stream-status-service
-WS_SERVICE_IMAGE_NAME=ucdlib/krm-ws-service
-HTTP2_SERVICE_IMAGE_NAME=ucdlib/krm-http2-service
-ROUTER_IMAGE_NAME=ucdlib/krm-router
-CONTROLLER_IMAGE_NAME=ucdlib/krm-controller
-API_IMAGE_NAME=ucdlib/krm-api
-EXPIRE_IMAGE_NAME=ucdlib/krm-expire
-GRAPH_SETUP_IMAGE_NAME=ucdlib/casita-krm-graph-setup
-KAFKA_CLI_IMAGE_NAME=ucdlib/kafka-cli
+GRB_DECORDER_IMAGE_NAME=$CONTAINER_REG_ORG/grb-decoder
+DECORDER_KRM_INTERFACE_IMAGE_NAME=$CONTAINER_REG_ORG/casita-decoder-krm-interface
+BASE_NODE_IMAGE_NAME=$CONTAINER_REG_ORG/krm-node-utils
+WORKER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-worker
+NODE_IMAGE_WORKER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-node-image-worker
+GENERIC_PAYLOAD_WORKER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-generic-payload-worker
+NODE_STREAM_STATUS_WORKER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-node-stream-status-worker
+NODE_STREAM_STATUS_SERVICE_IMAGE_NAME=$CONTAINER_REG_ORG/krm-node-stream-status-service
+WS_SERVICE_IMAGE_NAME=$CONTAINER_REG_ORG/krm-ws-service
+HTTP2_SERVICE_IMAGE_NAME=$CONTAINER_REG_ORG/krm-http2-service
+ROUTER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-router
+CONTROLLER_IMAGE_NAME=$CONTAINER_REG_ORG/krm-controller
+API_IMAGE_NAME=$CONTAINER_REG_ORG/krm-api
+EXPIRE_IMAGE_NAME=$CONTAINER_REG_ORG/krm-expire
+GRAPH_SETUP_IMAGE_NAME=$CONTAINER_REG_ORG/casita-krm-graph-setup
+KAFKA_CLI_IMAGE_NAME=$CONTAINER_REG_ORG/kafka-cli
 ZOOKEEPER_IMAGE_NAME=zookeeper
 KAFKA_IMAGE_NAME=bitnami/kafka
 MONGO_IMAGE_NAME=mongo

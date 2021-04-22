@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: default-worker
-        image: ucdlib/krm-worker:dev
+        image: gcr.io/ucdlib-pubreg/krm-worker:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

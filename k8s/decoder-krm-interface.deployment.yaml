@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: decoder-krm-interface
-        image: ucdlib/casita-decoder-krm-interface:main
+        image: gcr.io/ucdlib-pubreg/casita-decoder-krm-interface:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
@@ -23,9 +23,11 @@ spec:
           value: "kafka-service"
         - name: KAFKA_HOST
           value: "kafka-service"
+        - name: LOG_LEVEL
+          value: "info"
         resources:
           limits:
-            memory: "1Gi"
+            memory: "2Gi"
             cpu: "500m"
           requests:
             memory: "128Mi"

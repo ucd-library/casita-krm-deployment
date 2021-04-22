@@ -23,7 +23,7 @@ kubectl apply -f ./$DEPLOYMENT_DIR/router.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/controller.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/expire.deployment.yaml
 kubectl autoscale deployment  expire-deployment \
-  --max 2 --min 2 \
+  --max 3 --min 2 \
   --cpu-percent 50 || true
 
 kubectl apply -f ./$DEPLOYMENT_DIR/h2.deployment.yaml

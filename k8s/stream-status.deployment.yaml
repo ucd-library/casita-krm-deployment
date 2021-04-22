@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: stream-status-deployment
-        image: ucdlib/krm-node-stream-status-service:main
+        image: gcr.io/ucdlib-pubreg/krm-node-stream-status-service:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

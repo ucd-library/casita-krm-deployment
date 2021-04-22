@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: expire
-        image: ucdlib/krm-expire:dev
+        image: gcr.io/ucdlib-pubreg/krm-expire:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
@@ -34,7 +34,7 @@ spec:
         - mountPath: /etc/google
           name: service-account
       - name: expire-rev
-        image: ucdlib/krm-expire:dev
+        image: gcr.io/ucdlib-pubreg/krm-expire:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

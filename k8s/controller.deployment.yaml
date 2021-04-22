@@ -15,7 +15,7 @@ spec:
       # https://stackoverflow.com/questions/30538210/how-to-mimic-volumes-from-in-kubernetes
       initContainers:
       - name: graph-setup-init
-        image: ucdlib/casita-krm-graph-setup:v0.0.1
+        image: gcr.io/ucdlib-pubreg/casita-krm-graph-setup:v0.0.1
         imagePullPolicy: Always
         command: ["/bin/sh"]
         args: ["-c", "cp -r /setup/* /mnt/setup"]
@@ -24,7 +24,7 @@ spec:
           name: graph-setup-volume
       containers:
       - name: controller
-        image: ucdlib/krm-controller:dev
+        image: gcr.io/ucdlib-pubreg/krm-controller:dev
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

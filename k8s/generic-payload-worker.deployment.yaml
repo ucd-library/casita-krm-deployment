@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: generic-payload-worker
-        image: ucdlib/krm-generic-payload-worker:main
+        image: gcr.io/ucdlib-pubreg/krm-generic-payload-worker:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

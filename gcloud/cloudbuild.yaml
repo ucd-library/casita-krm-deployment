@@ -13,9 +13,9 @@ steps:
       - 'SHORT_SHA=$SHORT_SHA'
       - 'TAG_NAME=$TAG_NAME'
 
-  - name: gcr.io/cloud-builders/docker
-    entrypoint: "sh"
-    args: ["-c", "docker login --username=libosdev --password-stdin < pass.txt"]
+  # - name: gcr.io/cloud-builders/docker
+  #   entrypoint: "sh"
+  #   args: ["-c", "docker login --username=libosdev --password-stdin < pass.txt"]
 
   - name: gcr.io/cloud-builders/git
     entrypoint: "bash"

@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: kafka-cli-deployment
-        image: ucdlib/kafka-cli:{{APP_VERSION}}
+        image: {{KAFKA_CLI_IMAGE_NAME}}:{{APP_VERSION}}
         imagePullPolicy: Always
         env:
         - name: KRM_ENV

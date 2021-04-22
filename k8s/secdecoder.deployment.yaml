@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: secdecoder
-        image: ucdlib/grb-decoder:main
+        image: gcr.io/ucdlib-pubreg/grb-decoder:main
         imagePullPolicy: Always
         env:
         - name: KRM_ENV
