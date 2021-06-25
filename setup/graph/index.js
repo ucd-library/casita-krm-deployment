@@ -37,128 +37,140 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname}`
     },
 
-    'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
-      name : 'Create fulldisk composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
-      dependencies : [{
-        subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      options : {
-        ready : compositeReady.fulldisk,
-        timeout : 20 * 60 * 1000
-      },
-      command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    },
+    // 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+    //   name : 'Create fulldisk composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   options : {
+    //     ready : compositeReady.fulldisk,
+    //     timeout : 20 * 60 * 1000
+    //   },
+    //   command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    // },
 
-    'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
-      name : 'Create conus composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
-      dependencies : [{
-        subject : 'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      options : {
-        ready : compositeReady.conus,
-        timeout : 10 * 60 * 1000,
-        readyDelay : 2 * 1000
-      },
-       command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    },
+    // 'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+    //   name : 'Create conus composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   options : {
+    //     ready : compositeReady.conus,
+    //     timeout : 10 * 60 * 1000,
+    //     readyDelay : 2 * 1000
+    //   },
+    //    command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    // },
 
-    'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
-      name : 'Create mesoscale composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
-      dependencies : [{
-        subject : 'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      options : {
-        ready : compositeReady.mesoscale
-      },
-      command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    },
+    // 'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+    //   name : 'Create mesoscale composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/mesoscale/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   options : {
+    //     ready : compositeReady.mesoscale
+    //   },
+    //   command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    // },
 
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/web-scaled.png' : {
-      name : 'Create web scale composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/image.png',
-      }],
-      command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
-    },
+    // 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/web-scaled.png' : {
+    //   name : 'Create web scale composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/image.png',
+    //   }],
+    //   command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
+    // },
 
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/web-scaled.png' : {
-      name : 'Create web scale composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
+    // 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/web-scaled.png' : {
+    //   name : 'Create web scale composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
+    // },
+
+    // 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.json' : {
+    //   name : 'Generic payload parser',
+    //   worker : WORKERS.GENERIC,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.bin',
+    //     constraints : {
+    //       apid : GENERIC_PAYLOAD_APIDS
+    //     }
+    //   }],
+    //   command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
+    // },
+
+    // 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.json' : {
+    //   name : 'Generic payload parser',
+    //   worker : WORKERS.GENERIC,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.bin',
+    //     constraints : {
+    //       apid : GENERIC_PAYLOAD_APIDS
+    //     }
+    //   }],
+    //   command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
+    // },
+
+    // 'file:///west/{scale}/{date}/{hour}/{minsec}/summary/301/stats.json' : {
+    //   name : 'Generic payload parser',
+    //   worker : WORKERS.GENERIC,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/301/payload.json'
+    //   }],
+    //   options : {
+    //     ready : (uri, msg, config) => {
+    //       let pathname = path.parse(uri.pathname).dir;
+    //       pathname = path.join(config.fs.nfsRoot, pathname, '..', '..');
+    //       let count = fs.readdirSync(pathname).length;
+
+    //       return ( msg.data.ready.length >= count );
+    //     }
+    //   },
+    //   command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${uri.pathname}`
+    // },
+
+    // 'http://custom.googleapis.com/grb/time_to_disk/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}' : {
+    //   name : 'GRB Stream Status',
+    //   worker : WORKERS.NODE_STATUS,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/blocks/{block}/fragment-metadata.json',
+    //   },{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/metadata.json',
+    //   }],
+    //   command : (uri, msg, config) => ({
+    //     type : 'time_to_disk',
+    //     file : `${new URL(msg.data.ready[0]).pathname}`
+    //   })
+    // },
+
+    // 'http://custom.googleapis.com/krm/comp_png_gen_time/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
+    //   name : 'GRB Stream Status',
+    //   worker : WORKERS.NODE_STATUS,
+    //   dependencies : [{
+    //     subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   command : (uri, msg, config) => ({
+    //     type : 'comp_png_gen_time',
+    //     file : `${new URL(msg.data.ready[0]).pathname}`
+    //   })
+    // },
+
+    'http://casita.library.ucdavis.edu/ring-buffer/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png' : {
+      name : 'Add image to postgis',
+      worker : WORKERS.RING_BUFFER,
       dependencies : [{
         subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      command : (uri, msg, config) => `node-image-utils scale ${config.fs.nfsRoot}${uri.pathname} ${msg.data.args.band}`
-    },
-
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.json' : {
-      name : 'Generic payload parser',
-      worker : WORKERS.GENERIC,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.bin',
         constraints : {
-          apid : GENERIC_PAYLOAD_APIDS
+          apid : /^(b2|92)$/,
+          block : /^(3332-426|3332-930|4166-930|6328-1820|6328-1314|7232-1820)$/
         }
-      }],
-      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
-    },
-
-    'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.json' : {
-      name : 'Generic payload parser',
-      worker : WORKERS.GENERIC,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{apid}/payload.bin',
-        constraints : {
-          apid : GENERIC_PAYLOAD_APIDS
-        }
-      }],
-      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${new URL(msg.data.ready[0]).pathname}`
-    },
-
-    'file:///west/{scale}/{date}/{hour}/{minsec}/summary/301/stats.json' : {
-      name : 'Generic payload parser',
-      worker : WORKERS.GENERIC,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{ms}/301/payload.json'
-      }],
-      options : {
-        ready : (uri, msg, config) => {
-          let pathname = path.parse(uri.pathname).dir;
-          pathname = path.join(config.fs.nfsRoot, pathname, '..', '..');
-          let count = fs.readdirSync(pathname).length;
-
-          return ( msg.data.ready.length >= count );
-        }
-      },
-      command : (uri, msg, config) => `node /command ${config.fs.nfsRoot}${uri.pathname}`
-    },
-
-    'http://custom.googleapis.com/grb/time_to_disk/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}' : {
-      name : 'GRB Stream Status',
-      worker : WORKERS.NODE_STATUS,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/blocks/{block}/fragment-metadata.json',
-      },{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{bandms}/{apid}/metadata.json',
-      }],
-      command : (uri, msg, config) => ({
-        type : 'time_to_disk',
-        file : `${new URL(msg.data.ready[0]).pathname}`
-      })
-    },
-
-    'http://custom.googleapis.com/krm/comp_png_gen_time/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/{block}' : {
-      name : 'GRB Stream Status',
-      worker : WORKERS.NODE_STATUS,
-      dependencies : [{
-        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      command : (uri, msg, config) => ({
-        type : 'comp_png_gen_time',
-        file : `${new URL(msg.data.ready[0]).pathname}`
-      })
+      }]
     }
 }

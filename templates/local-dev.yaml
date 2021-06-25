@@ -185,7 +185,7 @@ services:
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     environment:
       - WORKER_TYPE=ring.buffer.worker
-    # command: bash -c 'tail -f /dev/null'
+    command: bash -c 'tail -f /dev/null'
 
   stream-status-service:
     image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
