@@ -21,6 +21,8 @@ spec:
         # TODO: change back when proper debug in place
         - name: LOG_LEVEL
           value: "info"
+        - name: EXPIRE_DIR_DEPTH
+          value: "4"
         resources:
           limits:
             memory: "400Mi"
@@ -44,6 +46,8 @@ spec:
           value: "info"
         - name: EXPIRE_DIRECTION
           value: "reverse"
+        - name: EXPIRE_DIR_DEPTH
+          value: "4"
         resources:
           limits:
             memory: "400Mi"
