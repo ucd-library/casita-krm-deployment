@@ -14,6 +14,8 @@ gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.service.yaml
 
+kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-worker.deployment.yaml
+
 # scalable services
 kubectl apply -f ./$DEPLOYMENT_DIR/default-worker.deployment.yaml
 kubectl autoscale deployment default-worker-deployment \

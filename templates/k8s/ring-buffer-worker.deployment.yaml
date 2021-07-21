@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ring-buffer-worker-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ring-buffer-worker
+  template:
+    metadata:
+      labels:
+        app: ring-buffer-worker
+    spec:
+      containers:
+      - name: ring-buffer-worker
+        image: {{RING_BUFFER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+        imagePullPolicy: Always
+        env:
+        - name: KRM_ENV
+          value: "{{K8S_KRM_ENV}}"
+        - name: RABBITMQ_HOST
+          value: rabbitmq-service
+        - name: KAFKA_HOST
+          value: "kafka-service"
+        - name: PG_HOST
+          value: "postgres-service"
+        - name: WORKER_TYPE
+          value: ring.buffer.worker
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "800m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+        volumeMounts:
+        - mountPath: /storage/nfs
+          name: nfspsc
+        - mountPath: /etc/google
+          name: service-account
+      volumes:
+      - name: nfspsc
+        persistentVolumeClaim:
+          claimName: nfs-persistent-storage-claim
+          readOnly: false
+      - name: service-account
+        secret:
+          secretName: service-account
+      nodeSelector:
+        intendedfor: worker

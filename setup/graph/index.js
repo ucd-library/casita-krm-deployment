@@ -9,6 +9,7 @@ const GENERIC_PAYLOAD_APIDS = /^(301|302)$/;
 const WORKERS = {
   DEFAULT : 'default.worker',
   NODE_IMAGE_UTILS : 'node.image.worker',
+  RING_BUFFER : 'ring.buffer.worker',
   NODE_STATUS : 'node.status.worker',
   GENERIC : 'generic.payload.worker'
 }
@@ -160,5 +161,17 @@ module.exports = {
         type : 'comp_png_gen_time',
         file : `${new URL(msg.data.ready[0]).pathname}`
       })
+    },
+
+    'http://casita.library.ucdavis.edu/ring-buffer/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png' : {
+      name : 'Add image to postgis',
+      worker : WORKERS.RING_BUFFER,
+      dependencies : [{
+        subject : 'file:///west/{scale}/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+        constraints : {
+          apid : /^(b6|96)$/,
+          block : /^(3164-657|3164-910|1666-213|1666-465|2083-465)$/
+        }
+      }]
     }
 }
