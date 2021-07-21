@@ -13,6 +13,9 @@ gcloud container clusters get-credentials ${GKE_CLUSTER_NAME}  \
 kubectl apply -f ./$DEPLOYMENT_DIR/mongo.statefulset.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/mongo.service.yaml
 
+kubectl apply -f ./$DEPLOYMENT_DIR/postgres.statefulset.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/postgres.service.yaml
+
 kubectl apply -f ./$DEPLOYMENT_DIR/rabbitmq.statefulset.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/rabbitmq.service.yaml
 
