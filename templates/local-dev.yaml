@@ -187,6 +187,19 @@ services:
       - WORKER_TYPE=ring.buffer.worker
     command: bash -c 'tail -f /dev/null'
 
+  ring-buffer-service:
+    image: {{RING_BUFFER_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/index.js:/command/index.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/service.js:/command/service.js
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/lib:/command/lib
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/test:/command/test
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    command: bash -c 'tail -f /dev/null'
+
   stream-status-service:
     image: {{NODE_STREAM_STATUS_SERVICE_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
     env_file:

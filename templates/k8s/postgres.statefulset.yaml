@@ -17,6 +17,9 @@ spec:
       containers:
       - name: postgres
         image: {{POSTGIS_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+        env:
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/pgdata"
         ports:
         - containerPort: 27017
         volumeMounts:

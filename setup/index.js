@@ -7,6 +7,7 @@ module.exports = {
   services : [
     {hostname : 'ws-service', route : 'ws'},
     {hostname : 'stream-status-service', route : 'status'},
-    {hostname : 'h2-service', route : 'h2'}
+    {hostname : 'h2-service', route : 'h2'},
+    {hostname : 'ring-buffer-service', route : 'thermal-anomaly'}
   ]
 }

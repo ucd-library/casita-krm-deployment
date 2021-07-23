@@ -17,6 +17,9 @@ spec:
       containers:
       - name: postgres
         image: gcr.io/ucdlib-pubreg/krm-postgis:main
+        env:
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/pgdata"
         ports:
         - containerPort: 27017
         volumeMounts:
