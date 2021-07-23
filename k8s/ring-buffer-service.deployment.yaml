@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ring-buffer-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ring-buffer-service
+  template:
+    metadata:
+      labels:
+        app: ring-buffer-service
+    spec:
+      containers:
+      - name: ring-buffer-service
+        image: gcr.io/ucdlib-pubreg/krm-blocks-ring-buffer:main
+        imagePullPolicy: Always
+        command: ["node"]
+        args: ["service.js"]
+        env:
+        - name: KRM_ENV
+          value: "gce-prod"
+        - name: RABBITMQ_HOST
+          value: rabbitmq-service
+        - name: KAFKA_HOST
+          value: "kafka-service"
+        - name: PG_HOST
+          value: "postgres-service"
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "800m"
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+        volumeMounts:
+        - mountPath: /storage/nfs
+          name: nfspsc
+        - mountPath: /etc/google
+          name: service-account
+      volumes:
+      - name: nfspsc
+        persistentVolumeClaim:
+          claimName: nfs-persistent-storage-claim
+          readOnly: false
+      - name: service-account
+        secret:
+          secretName: service-account
+      nodeSelector:
+        intendedfor: krm-services

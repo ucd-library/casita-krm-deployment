@@ -15,6 +15,8 @@ kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.service.yaml
 
 kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-worker.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-status.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-status.service.yaml
 
 # scalable services
 kubectl apply -f ./$DEPLOYMENT_DIR/default-worker.deployment.yaml
