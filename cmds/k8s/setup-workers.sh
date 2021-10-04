@@ -15,8 +15,11 @@ kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/stream-status.service.yaml
 
 kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-worker.deployment.yaml
-kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-status.deployment.yaml
-kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-status.service.yaml
+kubectl autoscale deployment ring-buffer-worker-deployment \
+  --max 3 --min 2 \
+  --cpu-percent 70 || true
+kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-service.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-service.service.yaml
 
 # scalable services
 kubectl apply -f ./$DEPLOYMENT_DIR/default-worker.deployment.yaml

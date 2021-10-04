@@ -1,7 +1,7 @@
 FROM azul/zulu-openjdk-alpine:11-jre
 MAINTAINER Justin Merz <jrmerz@ucdavis.edu>
 
-ENV KAFKA_VERSION=2.7.0
+ENV KAFKA_VERSION=2.7.1
 ENV KAFKA_URL=https://mirrors.ocf.berkeley.edu/apache/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz
 # ENV KAFKA_URL=https://www-eu.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz
 ENV KAFKA_TEMP_FILE=/opt/kafka.tgz

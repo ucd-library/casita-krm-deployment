@@ -4,7 +4,7 @@ metadata:
   name: ring-buffer-service
 spec:
   selector:
-    app: ring-buffer-service-deployment
+    app: ring-buffer-service
   ports:
   - protocol: TCP
     port: 3000

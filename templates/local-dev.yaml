@@ -215,7 +215,7 @@ services:
     env_file:
       - .env
     environment:
-      - GRB_FILE=secdecoded
+      - GRB_FILE=decoded
       - TARGET_URL=http://decoder-krm-interface:3000
     volumes:
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/decoder/index.js:/service/index.js
