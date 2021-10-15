@@ -18,6 +18,8 @@ spec:
         env:
         - name: KRM_ENV
           value: "gce-prod"
+        - name: LOG_LEVEL
+          value: "INFO"
         - name: RABBITMQ_HOST
           value: rabbitmq-service
         - name: KAFKA_HOST
