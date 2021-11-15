@@ -109,6 +109,15 @@ docker build \
   -t $HTTP2_SERVICE_IMAGE_NAME:$KRM_TAG \
   $REPOSITORY_DIR/$KRM_REPO_NAME/public-events/http2
 
+######### OPEN KAFKA W2 SERVICE ############
+
+echo "building: $EXTERNAL_TOPICS_IMAGE_NAME:$CASITA_TASKS_TAG"
+docker build \
+  --build-arg BUILDKIT_INLINE_CACHE=1 \
+  --build-arg WORKER_BASE_IMAGE=${WORKER_BASE_IMAGE} \
+  --cache-from $EXTERNAL_TOPICS_IMAGE_NAME:$DOCKER_CACHE_TAG \
+  -t $EXTERNAL_TOPICS_IMAGE_NAME:$KRM_TAG \
+  $REPOSITORY_DIR/$CASITA_TASKS_REPO_NAME/external-topics
 
 ######### BUILD KAFKA CLI IMAGE ############
 

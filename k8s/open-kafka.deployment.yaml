@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-kafka-deployment
+spec:
+  selector:
+    matchLabels:
+      app: open-kafka-deployment
+  template:
+    metadata:
+      labels:
+        app: open-kafka-deployment
+    spec:
+      containers:
+      - name: open-kafka
+        image: gcr.io/ucdlib-pubreg/open-kafka:v0.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: SERVER_TYPE
+          value: "WS"
+        - name: KAFKA_HOST
+          value: "kafka-service"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: value
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "1"
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+      nodeSelector:
+        intendedfor: krm-services

@@ -11,7 +11,8 @@ const WORKERS = {
   NODE_IMAGE_UTILS : 'node.image.worker',
   RING_BUFFER : 'ring.buffer.worker',
   NODE_STATUS : 'node.status.worker',
-  GENERIC : 'generic.payload.worker'
+  GENERIC : 'generic.payload.worker',
+  EXTERNAL_TOPICS : 'external.topics.worker'
 }
 
 module.exports = {
@@ -171,6 +172,18 @@ module.exports = {
         constraints : {
           apid : /^(b6|96)$/,
           block : /^(3164-657|3164-910|1666-213|1666-465|2083-465)$/
+        }
+      }]
+    },
+    'http://casita.library.ucdavis.edu/open-kafka-lightning/{product}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.json' : {
+      name : 'export lightning information to kafka topic',
+      worker : WORKERS.EXTERNAL_TOPICS,
+      dependencies : [{
+        subject : 'file:///west/{product}/{date}/{hour}/{minsec}/{ms}/{apid}/payload.json',
+        constraints : {
+          // product : /^(lightning-detection-event-data|lightning-detection-flash-data|lightning-detection-group-data|lightning-detection-metadata)$/,
+          apid : /^(301|302|303|300)$/,
+          // file : /^(payload.json|payload.bin)$/
         }
       }]
     }

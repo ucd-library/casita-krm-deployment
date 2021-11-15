@@ -23,6 +23,19 @@ services:
     depends_on:
       - "zookeeper"
 
+  open-kafka:
+    image: {{OPEN_KAFKA_IMAGE_NAME}}:{{OPEN_KAFKA_TAG}}
+    env_file:
+      - .env
+    environment: 
+      - SERVER_TYPE=WS
+      - KAFKA_HOST=kafka
+    depends_on:
+      - "zookeeper"
+    ports:
+      - "3005:3005"
+
+
   ksqldb:
     image: confluentinc/ksqldb-server:0.12.0
     hostname: ksqldb
@@ -197,6 +210,18 @@ services:
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/service.js:/command/service.js
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/lib:/command/lib
       - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/block-ring-buffer/test:/command/test
+      - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
+    command: bash -c 'tail -f /dev/null'
+
+  external-topics-worker:
+    image: {{EXTERNAL_TOPICS_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
+    env_file:
+      - .env
+    environment:
+      - WORKER_TYPE=external.topics.worker
+    volumes:
+      - ./storage:/storage/nfs
+      - ../{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/external-topics/index.js:/command/index.js
       - ${GCLOUD_SERVICE_ACCOUNT_MOUNT:-service-account}:/etc/google/service-account.json
     command: bash -c 'tail -f /dev/null'
 

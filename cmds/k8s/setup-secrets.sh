@@ -28,3 +28,6 @@ kubectl create secret generic service-account --from-file=service-account.json=.
 
 echo 'Make sure and set the decoder-ssh-user secret:'
 echo 'kubectl create secret generic decoder-ssh-user --from-literal=ssh-username=""'
+
+echo 'Make sure and set the jwt-secret secret:'
+echo 'kubectl create secret generic jwt-secret --from-literal=value=""'
