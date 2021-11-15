@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: external-topics-worke
+      app: external-topics-worker
   template:
     metadata:
       labels:
         app: external-topics-worker
     spec:
       containers:
-      - name: external-topics-worke
+      - name: external-topics-worker
         image: gcr.io/ucdlib-pubreg/external-topics-worker:main
         imagePullPolicy: Always
         env:

@@ -22,6 +22,9 @@ kubectl apply -f ./$DEPLOYMENT_DIR/rabbitmq.service.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/api.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/api.service.yaml
 
+kubectl apply -f ./$DEPLOYMENT_DIR/open-kafka.deployment.yaml
+kubectl apply -f ./$DEPLOYMENT_DIR/open-kafka.service.yaml
+
 kubectl apply -f ./$DEPLOYMENT_DIR/router.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/controller.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/expire.deployment.yaml

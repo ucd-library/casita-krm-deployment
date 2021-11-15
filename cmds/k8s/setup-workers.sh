@@ -21,6 +21,8 @@ kubectl autoscale deployment ring-buffer-worker-deployment \
 kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-service.deployment.yaml
 kubectl apply -f ./$DEPLOYMENT_DIR/ring-buffer-service.service.yaml
 
+kubectl apply -f ./$DEPLOYMENT_DIR/external-topics-worker.deployment.yaml
+
 # scalable services
 kubectl apply -f ./$DEPLOYMENT_DIR/default-worker.deployment.yaml
 kubectl autoscale deployment default-worker-deployment \

@@ -20,6 +20,8 @@ spec:
         env:
         - name: SERVER_TYPE
           value: "WS"
+        - name: SOCKET_IO_PATH
+          value: "/_/open-kafka-ws/"
         - name: KAFKA_HOST
           value: "kafka-service"
         - name: JWT_SECRET

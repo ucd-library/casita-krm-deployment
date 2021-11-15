@@ -5,14 +5,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: external-topics-worke
+      app: external-topics-worker
   template:
     metadata:
       labels:
         app: external-topics-worker
     spec:
       containers:
-      - name: external-topics-worke
+      - name: external-topics-worker
         image: {{EXTERNAL_TOPICS_IMAGE_NAME}}:{{CASITA_TASKS_TAG}}
         imagePullPolicy: Always
         env:
