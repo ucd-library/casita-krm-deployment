@@ -3,3 +3,4 @@ docker.key
 repositories/**
 casita-krm-local-dev/**
 service-account.json
+storage

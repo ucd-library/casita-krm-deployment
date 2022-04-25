@@ -22,6 +22,8 @@ spec:
           value: "INFO"
         - name: KAFKA_HOST
           value: "kafka-service"
+        - name: RABBITMQ_HOST
+          value: rabbitmq-service
         - name: WORKER_TYPE
           value: external.topics.worker
         resources:
