@@ -39,18 +39,18 @@ module.exports = {
       command : (uri, msg, config) => `node-image-utils jp2-to-png ${config.fs.nfsRoot}${uri.pathname}`
     },
 
-    'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
-      name : 'Create fulldisk composite images',
-      worker : WORKERS.NODE_IMAGE_UTILS,
-      dependencies : [{
-        subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
-      }],
-      options : {
-        ready : compositeReady.fulldisk,
-        timeout : 20 * 60 * 1000
-      },
-      command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
-    },
+    // 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
+    //   name : 'Create fulldisk composite images',
+    //   worker : WORKERS.NODE_IMAGE_UTILS,
+    //   dependencies : [{
+    //     subject : 'file:///west/fulldisk/{date}/{hour}/{minsec}/{band}/{apid}/blocks/{block}/image.png',
+    //   }],
+    //   options : {
+    //     ready : compositeReady.fulldisk,
+    //     timeout : 20 * 60 * 1000
+    //   },
+    //   command : (uri, msg, config) => `node-image-utils composite ${config.fs.nfsRoot}${uri.pathname}`
+    // },
 
     'file:///west/conus/{date}/{hour}/{minsec}/{band}/{apid}/image.png' : {
       name : 'Create conus composite images',
