@@ -4,6 +4,9 @@
 # Setup your application deployment here
 ########################################
 
+CONFIG_ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+HOME_HOST_PATH="${CONFIG_ROOT_DIR#"$HOME"/}"
+
 # Main version number we are tagging the app with. Always update
 # this when you cut a new version of the app!
 APP_VERSION=v0.0.1
@@ -29,7 +32,12 @@ OPEN_KAFKA_TAG=v0.0.1
 
 CONTAINER_REG_ORG=gcr.io/ucdlib-pubreg
 
-DOCKER_CACHE_TAG="latest"
+if [[ -z $BRANCH_NAME ]]; then
+  CONTAINER_CACHE_TAG=$(git rev-parse --abbrev-ref HEAD)
+else
+  CONTAINER_CACHE_TAG=$BRANCH_NAME
+fi
+
 LOCAL_TAG="local-dev"
 
 ##

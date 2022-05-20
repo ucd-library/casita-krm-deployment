@@ -1,0 +1,10 @@
+workers:
+  extraVolumeMounts:
+  - name: local-block-ring-buffer
+    mountPath: /casita/block-ring-buffer
+    readOnly: true
+
+  extraVolumes:
+  - name: local-block-ring-buffer
+    hostPath:
+      path: /hosthome/{{HOME_HOST_PATH}}/{{REPOSITORY_DIR}}/{{CASITA_TASKS_REPO_NAME}}/node-tasks/block-ring-buffer

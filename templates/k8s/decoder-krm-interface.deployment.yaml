@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: decoder-krm-interface-deployment
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: decoder-krm-interface
@@ -26,11 +26,11 @@ spec:
         - name: LOG_LEVEL
           value: "info"
         resources:
-          limits:
-            memory: "2Gi"
-            cpu: "500m"
+          # limits:
+          #   memory: "1Gi"
+          #   cpu: "500m"
           requests:
-            memory: "128Mi"
+            memory: "500Mi"
             cpu: "100m"
         volumeMounts:
         - mountPath: /storage/nfs

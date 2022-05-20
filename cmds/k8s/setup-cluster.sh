@@ -19,7 +19,7 @@ gcloud beta container clusters create ${GKE_CLUSTER_NAME} \
 gcloud beta container node-pools create decoders \
   --cluster ${GKE_CLUSTER_NAME} \
   --zone ${GC_ZONE} \
-  --machine-type e2-medium \
+  --machine-type e2-highmem-2 \
   --num-nodes 1 \
   --disk-size 20GB \
   --node-labels=intendedfor=decoders
